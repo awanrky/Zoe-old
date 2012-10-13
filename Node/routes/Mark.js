@@ -42,7 +42,17 @@ exports.getAll = function(req, res) {
 }
 
 exports.add = function(req, res) {
-
+	console.log('In exports.add');
+	db.collection('Mark', function(err, collection) {
+		collection.insert(req.body, {safe:true}, function(err, result) {
+			if (err) {
+				res.send({'error': 'Error: '});
+			} else {
+				console.log('Added: ' + JSON.stringify(result[0]));
+				res.send(result[0]);
+			}
+		});
+	});
 }
 
 exports.update = function(req, res) {
