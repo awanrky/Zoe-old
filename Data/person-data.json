@@ -1,0 +1,9 @@
+{
+	"name": "a name for this piece of data.  could be anything.  should probably be short",
+	"description": "a description of this piece of data if name is not a sufficient description",
+	"type": "required: what this data represents.  a weight measurement?  a gas fillup?  will suggest what other properties this data should have.  could be a type defined in the Zoe.types collection, or it could just be a name to group by.",
+	"createdOn": "required: day and time this data was created",
+	"modifiedOn": "day and time this data was last modified",
+	"updateCount": "number of times this data was modified",
+	"source": "what program or process and device sent this data to be recorded"
+}
