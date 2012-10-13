@@ -1,0 +1,1 @@
+mongo localhost:27017/ZoeTest --quiet SetupZoe.js

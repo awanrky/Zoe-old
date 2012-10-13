@@ -1,15 +1,20 @@
-var mongo = require('mongodb');
+var mongo = require('mongodb'),
+	configuration = require('../configuration');
 
 var Server = mongo.Server,
 	Db = mongo.Db,
 	BSON = mongo.BSONPure;
 
-var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('Zoe', server);
+var server = new Server(
+	configuration.databaseServer, 
+	configuration.databasePort, 
+	{auto_reconnect: true}
+);
+db = new Db(configuration.databaseName, server, {safe:true});
 
 db.open(function(err, db) {
 	if (!err) {
-		console.log("Connected to Zoe");
+		console.log("Connected to " + configuration.databaseName);
 		db.collection('Mark', {safe:true}, function(err, collection) {
 			if (err) {
 				console.log('Cannot open Mark');
