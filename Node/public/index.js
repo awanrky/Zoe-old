@@ -13,7 +13,7 @@
 
 			this.receivedData = ko.observableArray([{d:''}]);
 
-			$.getJSON("/Mark", function(data) {
+			$.getJSON("/person/Mark", function(data) {
 				self.receivedData.push({d: JSON.stringify(data)});
 				var person = data[0];
 				self.firstName(person.name.first);
