@@ -23,11 +23,6 @@ db.open(function(err, db) {
 			configuration.databasePort +
 			"/" +
 			configuration.databaseName);
-		// db.collection('Mark', {safe:true}, function(err, collection) {
-		// 	if (err) {
-		// 		console.log('Cannot open Mark');
-		// 	}
-		// });
 	}
 });
 
@@ -46,6 +41,15 @@ exports.getAll = function(req, res) {
 	var person = req.params.person;
 	db.collection(person, function(err, collection) {
 		collection.find().toArray(function(err, items) {
+			res.send(items);
+		});
+	});
+}
+
+exports.getDistinctTypes = function(req, res) {
+	var person = req.params.person;
+	db.collection(person, function(err, collection) {
+		collection.distinct('type', {}, function(err, items) {
 			res.send(items);
 		});
 	});

@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<title>Zoe</title>
+		<link href="lib/bootstrap/bootstrap.2.1.1/css/bootstrap.min.css" rel="stylesheet">
+		<link href="lib/bootstrap/bootstrap.2.1.1/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<script src="lib/underscore/underscore.1.4.2/underscore-min.js"></script>
 		<script src="lib/jquery/jquery.1.8.2/jquery-1.8.2.js"></script>
 		<script src="lib/knockout/knockout.2.1.0/knockout-2.1.0.debug.js"></script>
+		<script src="lib/bootstrap/bootstrap.2.1.1/js/bootstrap.min.js"></script>
 		<script src="index.js"></script>
 	</head>
 	<body>
-		<div>
-			<p>Zoe data for: <strong data-bind="text: fullName"></strong></p>
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span3 well">
+					<div class="row-fluid">
+						<div class="span12">Zoe data for: <strong data-bind="text: fullName"></strong></div>
+					</div>
+
+					<div class="row-fluid">
+						<div class="span12">
+							<ul data-bind="foreach: distinctTypes">
+								<li data-bind="text: type"></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="span9">
+
+				</div>
+			</div>
 		</div>
+
 		<div data-bind="foreach: receivedData">
 			<p data-bind="text: d"></p>
 		</div>
