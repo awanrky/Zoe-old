@@ -3,7 +3,7 @@
 	"description": "API and web interface for Zoe",
 	"version": "0.0.1",
 	"dependencies": {
-		"express": "*",
+		"express": "3.x",
 		"mongodb": "*"
 	}
 }

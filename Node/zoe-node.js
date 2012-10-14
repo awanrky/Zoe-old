@@ -4,10 +4,11 @@ var express = require('express'),
 
 var app = express();
 
-app.configure(function() {
-	//app.use(express.logger('dev'));
+//app.configure(function() {
+	app.use(express.logger('dev'));
 	app.use(express.bodyParser());
-});
+	app.use(express.static(__dirname + '/public'));
+//});
 
 
 app.get('/Mark', Mark.getAll);
@@ -18,8 +19,9 @@ app.delete('/Mark/:id', Mark.delete);
 
 app.listen(configuration.nodePort);
 console.log(
-	'zoe-node ' 
-	+ configuration.environmentName 
-	+ ' started on port: ' 
-	+ configuration.nodePort
+	'zoe-node started on port: ' +
+	configuration.nodePort +
+	" (" +
+	configuration.environmentName +
+	" environment)"
 );
