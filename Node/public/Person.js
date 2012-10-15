@@ -7,6 +7,7 @@
  *
  */
 function Person(name, dataLogArray) {
+	"use strict;"
 	var self = this;
 
 	function log(data) {
@@ -14,13 +15,17 @@ function Person(name, dataLogArray) {
 		dataLogArray.unshift({d: JSON.stringify(data)});
 	}
 
+	/**
+	 * Gets meta data about the current person
+	 *
+	 * @param {function} callback
+	 */
 	this.getMeta = function(callback) {
 		$.getJSON("/person/" + name, function(data) {
 			log(data);
 			callback(data[0]);
 		});
 	}
-
 
 	/**
 	 * Fills an array with a list of all the types of data that exist for this user
