@@ -27,6 +27,13 @@ function Person(name, dataLogArray) {
 		});
 	}
 
+	this.getTypeData = function(type, callback) { 
+		$.getJSON('person/get-type-data/' + name + '/' + type, function(data) {
+			log(data);
+			callback(data);
+		});
+	}
+
 	/**
 	 * Fills an array with a list of all the types of data that exist for this user
 	 *

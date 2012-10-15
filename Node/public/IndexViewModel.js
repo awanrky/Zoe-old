@@ -2,6 +2,9 @@ function IndexViewModel() {
 	"use strict;"
 	var self = this;
 
+	this.currentType = ko.observable();
+	this.currentTypeData = ko.observableArray();
+
 	/**
 	 * An ObservableArray that holds one element for each ajax call made
 	 */
@@ -17,13 +20,6 @@ function IndexViewModel() {
 	 */
 	this.personMeta = getPersonMeta();
 
-
-
-	var person = new Person('Mark', this.receivedData);
-
-	getPersonMetaData(this.personMeta);
-	getDistinctTypes(this.distinctTypes);
-
 	/**
 	 * Gets the id of the correct template to use for this type, or the default template if
 	 * this type does not have a template
@@ -35,6 +31,22 @@ function IndexViewModel() {
 		}
 		return templateName;
 	}
+
+	this.setCurrentType = function(type) {
+		this.currentType(type);
+		this.currentTypeData.removeAll();
+		person.getTypeData(type, function(data) {
+			$.each(data, function(index, value) {
+				self.currentTypeData.push(value);
+			});
+		});
+	}
+
+
+	var person = new Person('Mark', this.receivedData);
+
+	getPersonMetaData(this.personMeta);
+	getDistinctTypes(this.distinctTypes);
 
 	function getDistinctTypes(types) {
 		types.removeAll();

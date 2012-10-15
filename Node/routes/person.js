@@ -47,6 +47,16 @@ exports.getAll = function(req, res) {
 	});
 }
 
+exports.getTypeData = function(req, res) {
+	var person = req.params.person;
+	var type = req.params.type;
+	db.collection(person, function(err, collection) {
+		collection.find({'type': type}).toArray(function(err, items) {
+			res.send(items);
+		});
+	});
+}
+
 exports.getDistinctTypes = function(req, res) {
 	var person = req.params.person;
 	db.collection(person, function(err, collection) {

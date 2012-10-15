@@ -27,7 +27,7 @@
 			<div class="content-div row-fluid">
 				<ul class="span3 nav nav-pills nav-stacked well" data-bind="foreach: distinctTypes">
 					<li>
-						<a data-toggle="tab" data-bind="attr: { href: '#' + type + '-tab' }">
+						<a data-toggle="pill" data-bind="attr: { href: '#' + type + '-tab', 'data-type': type }">
 							<span data-bind="text: prettyName"></span>
 						</a>
 					</li>
