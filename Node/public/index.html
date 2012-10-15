@@ -4,36 +4,54 @@
 		<title>Zoe</title>
 		<link href="lib/bootstrap/bootstrap.2.1.1/css/bootstrap.min.css" rel="stylesheet">
 		<link href="lib/bootstrap/bootstrap.2.1.1/css/bootstrap-responsive.min.css" rel="stylesheet">
+		<link href="index.css" rel="stylesheet">
 		<script src="lib/underscore/underscore.1.4.2/underscore-min.js"></script>
 		<script src="lib/jquery/jquery.1.8.2/jquery-1.8.2.js"></script>
 		<script src="lib/knockout/knockout.2.1.0/knockout-2.1.0.debug.js"></script>
 		<script src="lib/bootstrap/bootstrap.2.1.1/js/bootstrap.min.js"></script>
+		<script src="Person.js"></script>
+		<script src="IndexViewModel.js"></script>
 		<script src="index.js"></script>
 	</head>
 	<body>
 		<div class="container-fluid">
-			<div class="row-fluid">
-				<div class="span3 well">
-					<div class="row-fluid">
-						<div class="span12">Zoe data for: <strong data-bind="text: fullName"></strong></div>
-					</div>
 
-					<div class="row-fluid">
-						<div class="span12">
-							<ul data-bind="foreach: distinctTypes">
-								<li data-bind="text: type"></li>
-							</ul>
-						</div>
-					</div>
+			<div class="navbar">
+				<div class="navbar-inner">
+					<a class="brand" href="#">
+						<strong>Zoe</strong> (<span data-bind="text: personMeta.fullName"></span>)
+					</a>
 				</div>
-				<div class="span9">
+			</div>
 
-				</div>
+			<div class="content-div row-fluid">
+				<ul class="span3 nav nav-pills nav-stacked well" data-bind="foreach: distinctTypes">
+					<li>
+						<a data-toggle="tab" data-bind="attr: { href: '#' + type + '-tab' }">
+							<span data-bind="text: prettyName"></span>
+						</a>
+					</li>
+				</ul>
+				<div class="span9 tab-content well" data-bind="template: { name: getTypeTemplate, foreach: distinctTypes }"></div>
 			</div>
 		</div>
 
 		<div data-bind="foreach: receivedData">
 			<p data-bind="text: d"></p>
 		</div>
+
+		<script type="text/html" id="type-template-default">
+			<div class="tab-pane" data-bind="attr: { id: type + '-tab' }">
+				<p>This is the default template</p>
+				<p data-bind="text: prettyName"></p>
+			</div>
+		</script>
+
+		<script type="text/html" id="type-template-bodyWeight">
+			<div class="tab-pane" data-bind="attr: { id: type + '-tab' }">
+				<p>This is the Body Weight template</p>
+			</div>
+		</script>
+
 	</body>
 </html>

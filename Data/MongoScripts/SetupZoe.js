@@ -1,4 +1,4 @@
-
+dataSource = "SetupZoe.js";
 db.dropDatabase();
 
 mark = {
@@ -11,7 +11,7 @@ mark = {
 	"type": "meta",
 	"collectionMeta": "collectionMeta",
 	"createdOn": new Date(),
-	"source": "SetupZoe.js"
+	"source": dataSource
 }
 
 db.Mark.save(mark);
@@ -20,12 +20,30 @@ db.Mark.ensureIndex({collectionMeta: 1}, {unique: true, sparse: true});
 db.Mark.ensureIndex({type: 1});
 db.Mark.ensureIndex({createdOn: 1})
 
-bulkInsert = [{
-	"type": "test",
-	"createdOn": new Date()
+metaData = [{
+	"prettyName": "Meta",
+	"type": "meta",
+	"typeMeta": "meta",
+	"createdOn": new Date(),
+	"source": dataSource
 },{
-	"type": "test",
-	"createdOn": new Date()
+	"prettyName": "Gasoline Purchase",
+	"type": "gasolinePurchase",
+	"typeMeta": "gasolinePurchase",
+	"createdOn": new Date(),
+	"source": dataSource
+},{
+	"prettyName": "Body Weight",
+	"type": "bodyWeight",
+	"typeMeta": "bodyWeight",
+	"tags": [
+		"health",
+		"nutrition"
+	],
+	"createdOn": new Date(),
+	"source": dataSource
 }];
 
-db.Mark.save(bulkInsert);
+db.Mark.save(metaData);
+
+db.Mark.ensureIndex({typeMeta: 1}, {unique: true, sparse: true});

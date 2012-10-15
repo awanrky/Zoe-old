@@ -1,7 +1,8 @@
 // modified code from http://coenraets.org/blog/2012/10/creating-a-rest-api-using-node-js-express-and-mongodb/
 
 var mongo = require('mongodb'),
-	configuration = require('../configuration');
+	configuration = require('../configuration'),
+	_ = require('underscore');
 
 var Server = mongo.Server,
 	Db = mongo.Db,
@@ -50,7 +51,26 @@ exports.getDistinctTypes = function(req, res) {
 	var person = req.params.person;
 	db.collection(person, function(err, collection) {
 		collection.distinct('type', {}, function(err, items) {
-			res.send(items);
+			var types = [];
+			// console.log("getDistinctTypes(), typeof items: " + typeof items);
+			// console.log("getDistinctTypes(), items: " + items);
+			// console.log("getDistinctTypes(), getting " + items.length + " items");
+			var sendResult = _.after(items.length, function(t) { 
+				// console.log("getDistinctTypes(), sending...");
+				res.send(t); 
+			});
+			_.map(items, function(element, index, list) {
+				collection.findOne({'typeMeta': items[index]}, function(err, item) {
+					if (err) { 
+						types.push({type: items[index], prettyName: items[index]});
+					} else {
+						types.push({type: items[index], prettyName: item.prettyName});
+					}
+					// console.log("getDistinctTypes(), item: " + items[index]);
+					sendResult(types);
+				})
+			});
+			//res.send(items);
 		});
 	});
 }
