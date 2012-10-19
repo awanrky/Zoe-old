@@ -1,5 +1,5 @@
 var express = require('express'),
-	configuration = require('./configuration'),
+	configuration = require('./zoe-configuration'),
 	person = require('./routes/person');
 
 var app = express();
