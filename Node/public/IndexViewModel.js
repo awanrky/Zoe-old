@@ -2,35 +2,42 @@
 function PersonData() {
 	var self = this;
 
-	function Base() {
-		this.id = ko.observable();
-		this.date = new Date();
-		this.type = ko.observable();
-		this.name = ko.observable();
-		this.description = ko.observable();
-		this.source = ko.observable();
-		this.value = ko.observable();
+	this.id = ko.observable();
+	this.date = new Date();
+	this.type = ko.observable();
+	this.name = ko.observable();
+	this.description = ko.observable();
+	this.source = ko.observable();
+	this.value = ko.observable();
+
+	this.setDefault = function(value) {
+		self.id(undefined);
+		self.date = new Date();
+		self.type(undefined);
+		self.name(undefined);
+		self.description(undefined);
+		self.source(undefined);
+		self.value(value);
+		return self;
 	}
 
-
-	this.getBase = function() { return new Base(); }
-
-	this.getWeight = function(weight) {
-		if (typeof weight === 'undefined') { weight = 0; }
-		var base = new Base();
-		base.type("bodyWeight");
-		base.value(weight);
-		return base;
+	this.setWeight = function(value) {
+		if (typeof value === 'undefined') { value = 0; }
+		self.setDefault(value);
+		self.type("bodyWeight");
+		return self;
 	}
 
-	this.getType = function(type) {
+	this.setType = function(type, value) {
 		switch(type) {
 			case 'bodyWeight':
-				return self.getWeight();
+				return self.setWeight(value);
 			default:
-				return self.getBase();
+				return self.setDefault(value);
 		}
 	}
+
+	this.setDefault();
 }
 
 function IndexViewModel() {
@@ -42,7 +49,7 @@ function IndexViewModel() {
 	this.currentType = ko.observable();
 	this.currentTypeData = ko.observableArray();
 	this.currentTypeMeta = ko.observableArray();
-	this.currentTypeCurrentValue = ko.observable(personData.getBase());
+	this.currentTypeCurrentValue = new PersonData();
 
 	/**
 	 * An ObservableArray that holds one element for each ajax call made
@@ -71,11 +78,11 @@ function IndexViewModel() {
 		return templateName;
 	}
 
-	this.setCurrentType = function(type) {
-		this.currentType(type);
-		this.currentTypeMeta.removeAll();
-		this.currentTypeData.removeAll();
-		person.getTypeData(type, function(data) {
+	this.refreshTypeData = function() {
+		var type = self.currentType()
+		self.currentTypeMeta.removeAll();
+		self.currentTypeData.removeAll();
+		person.getTypeData(self.currentType(), function(data) {
 			$.each(data, function(index, value) {
 				if (value.typeMeta === type) {
 					self.currentTypeMeta.push(value)
@@ -83,13 +90,18 @@ function IndexViewModel() {
 					self.currentTypeData.push(value);
 				}
 			});
-		});
-		self.currentTypeCurrentValue(personData.getType(type));
+		});		
+	}
+
+	this.setCurrentType = function(type) {
+		self.currentType(type);
+		self.currentTypeCurrentValue = personData.setType(type);
+		self.refreshTypeData();
 	}
 
 	this.updateCurrentValue = function() {
 		person.add(self.currentTypeCurrentValue, function(jqXHR, status) {
-			self.setCurrentType(self.currentType());
+			self.refreshTypeData();
 		});
 	}
 
