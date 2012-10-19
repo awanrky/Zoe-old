@@ -48,4 +48,12 @@ function Person(name, dataLogArray) {
 			callback(data);
 		});
 	}
+
+	this.add = function(data, callback) {
+		$.ajax("/person/" + name, {
+			data: ko.toJSON(data),
+			type: "post", contentType: "application/json",
+			complete: callback
+		});
+	}
 }

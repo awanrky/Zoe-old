@@ -25,7 +25,7 @@
 			</div>
 
 			<div class="content-div row-fluid">
-				<ul class="span3 nav nav-pills nav-stacked well" data-bind="foreach: distinctTypes">
+				<ul class="span3 nav nav-pills nav-stacked well" data-bind="foreach: { data: distinctTypes, afterRender: handleAfterPillRender }">
 					<li>
 						<a data-toggle="pill" data-bind="attr: { href: '#' + type + '-tab', 'data-type': type }">
 							<span data-bind="text: prettyName"></span>
@@ -50,6 +50,21 @@
 		<script type="text/html" id="type-template-bodyWeight">
 			<div class="tab-pane" data-bind="attr: { id: type + '-tab' }">
 				<p>This is the Body Weight template</p>
+
+				<form>
+					Weight: <input data-bind="value: $parent.currentTypeCurrentValue.value" />
+				</form>
+
+				<button data-bind="click: $parent.updateCurrentValue">Update</button>
+
+				<div>
+					<ul data-bind="foreach: $parent.currentTypeData">
+						<li data-bind="text: value"></li>
+					</ul>
+				</div>
+
+				<p data-bind="text: JSON.stringify( $parent.currentTypeMeta() )"></p>
+				<p data-bind="text: JSON.stringify( $parent.currentTypeData() )"></p>
 			</div>
 		</script>
 

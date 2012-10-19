@@ -28,6 +28,7 @@ db.open(function(err, db) {
 });
 
 exports.getById = function(req, res) {
+	res.set('Cache-Control', 'no-cache');
 	var person = req.params.person;
 	var id = req.params.id;
 	console.log('Retreiving: ' + id);
@@ -39,6 +40,7 @@ exports.getById = function(req, res) {
 }
 
 exports.getAll = function(req, res) {
+	res.set('Cache-Control', 'no-cache');
 	var person = req.params.person;
 	db.collection(person, function(err, collection) {
 		collection.find().toArray(function(err, items) {
@@ -48,6 +50,7 @@ exports.getAll = function(req, res) {
 }
 
 exports.getTypeData = function(req, res) {
+	res.set('Cache-Control', 'no-cache');
 	var person = req.params.person;
 	var type = req.params.type;
 	db.collection(person, function(err, collection) {
@@ -58,6 +61,7 @@ exports.getTypeData = function(req, res) {
 }
 
 exports.getDistinctTypes = function(req, res) {
+	res.set('Cache-Control', 'no-cache');
 	var person = req.params.person;
 	db.collection(person, function(err, collection) {
 		collection.distinct('type', {}, function(err, items) {
@@ -73,8 +77,10 @@ exports.getDistinctTypes = function(req, res) {
 				collection.findOne({'typeMeta': items[index]}, function(err, item) {
 					if (err) { 
 						types.push({type: items[index], prettyName: items[index]});
-					} else {
+					} else if (item) {
 						types.push({type: items[index], prettyName: item.prettyName});
+					} else {
+						types.push({type: items[index], prettyName: items[index]});
 					}
 					// console.log("getDistinctTypes(), item: " + items[index]);
 					sendResult(types);
