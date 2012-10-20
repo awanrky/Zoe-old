@@ -4,4 +4,4 @@ exports.databaseServer = "localhost";
 exports.databasePort = 27017;
 exports.databaseName = "ZoeDevelopment";
 
-exports.nodePort = 1967;
+exports.nodePort = 1976;
