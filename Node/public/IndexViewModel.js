@@ -1,8 +1,6 @@
 
 function TypeMeta(type) {
-    var self = this;
-
-    this.id = ko.observable(type._id);
+    this._id = ko.observable(type._id);
     this.createdOn = ko.observable(type.createdOn);
     this.type = ko.observable(type.type);
     this.name = ko.observable(type.name);
@@ -11,12 +9,11 @@ function TypeMeta(type) {
     this.value = ko.observable(type.value);
     this.typeMeta = ko.observable(type.typeMeta);
     this.tags = ko.observableArray(type.tags);
+    this.prettyName = ko.observable(type.prettyName);
 }
 
 function TypeData(type) {
     var self = this;
-    var raw;
-    var rawData;
 
 	this._id = ko.observable();
     this.createdOn = ko.observable();
@@ -28,18 +25,12 @@ function TypeData(type) {
     
     switch (typeof type) {
         case 'string':
-            raw = type;
-            rawData = parseType();
-            setDefault(rawData);
+            setDefault(parseType());
             break;
         case 'object':
-            raw = undefined;
-            rawData = type;
-            setDefault(rawData);
+            setDefault(type);
             break;
         default:
-            raw = undefined;
-            rawData = undefined;
             setType();
             break;
     }
@@ -75,22 +66,24 @@ function TypeData(type) {
 
 }
 
-function Type(name, person) {
+function Type(typeMeta, person) {
     var self = this;
     
-    this.name = ko.observable(name);
-    this.meta = ko.observableArray();
+    this.meta = ko.observable(new TypeMeta(typeMeta || {}));
     this.data = ko.observableArray();
-    this.current = ko.observable(new TypeData({type:'bodyWeight'}));
+    this.current = ko.observable(new TypeData({ type: 'bodyWeight' }));
+    this.name = ko.computed(function () {
+        return self.meta().type();
+    });
+    this.prettyName = ko.computed(function () {
+        return self.meta().prettyName();
+    });
     
     this.refresh = function () {
-        self.meta.removeAll();
         self.data.removeAll();
         person.getTypeData(this.name(), function (data) {
             $.each(data, function (index, value) {
-                if (value.typeMeta === self.name()) {
-                    self.meta.push(new TypeMeta(value));
-                } else {
+                if (value.typeMeta !== self.name()) {
                     self.data.push(new TypeData(value));
                 }
             });
@@ -103,6 +96,17 @@ function Type(name, person) {
         });
     };
     
+    /**
+	 * Gets the id of the correct template to use for this type, or the default template if
+	 * this type does not have a template
+	 */
+    this.getTypeTemplate = function() {
+        var templateName = 'type-template-' + this.name();
+        if ($('#' + templateName).length === 0) {
+            return 'type-template-default';
+        }
+        return templateName;
+    };
 }
 
 function IndexViewModel() {
@@ -124,16 +128,8 @@ function IndexViewModel() {
 	 */
 	this.personMeta = getPersonMeta();
 
-	/**
-	 * Gets the id of the correct template to use for this type, or the default template if
-	 * this type does not have a template
-	 */
-    this.getTypeTemplate = function(distinctType) {
-        var templateName = 'type-template-' + distinctType.name();
-        if ($('#' + templateName).length === 0) {
-            return 'type-template-default';
-        }
-        return templateName;
+    this.getTypeTemplate = function(type) {
+        return type.getTypeTemplate();
     };
 
     this.onClickTab = function(data) {
@@ -148,7 +144,7 @@ function IndexViewModel() {
 	    types.removeAll();
 	    person.getDistinctTypes(function (typesArray) {
 	        $.each(typesArray, function (index, value) {
-	            types.push(new Type(value.type, person));
+	            types.push(new Type(value, person));
 	        });
 	    });
 	};

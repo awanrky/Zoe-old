@@ -27,8 +27,8 @@
 			<div class="content-div row-fluid">
 				<ul class="span3 nav nav-pills nav-stacked well" data-bind="foreach: types">
 					<li data-bind="css: { active: $root.current() === $data }">
-						<a href="#" data-toggle="pill" data-bind ="click: $root.onClickTab, text: name">
-						</a>
+					    <a href="#" data-toggle="pill" data-bind ="click: $root.onClickTab, text: prettyName">
+					    </a>
 					</li>
 				</ul>
 				<div class="span9 tab-content well" data-bind="template: { name: getTypeTemplate, foreach: types }"></div>
@@ -46,10 +46,11 @@
 			</div>
 		</script>
 
-		<script type="text/html" id="type-template-bodyWeight">
-			<div class="tab-pane" data-bind="css: { active: $root.current() === $data }">
-				<p>This is the Body Weight template</p>
-
+	    <script type="text/html" id="type-template-bodyWeight">
+	        <div class="tab-pane" data-bind="css: { active: $root.current() === $data }">
+	            <div data-bind="if: $parent.current().meta().length">
+	                <p data-bind="text: $parent.current().meta()[0].prettyName"></p>
+	            </div>
 				Weight: <input data-bind="value: $parent.current().current().value, valueUpdate: 'afterkeydown'" />
 
 				<button data-bind="click: $parent.current().add">Update</button>

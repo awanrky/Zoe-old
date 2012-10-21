@@ -50,51 +50,51 @@ exports.getAll = function(req, res) {
 }
 
 exports.getTypeData = function(req, res) {
-	res.set('Cache-Control', 'no-cache');
-	var person = req.params.person;
-	var type = req.params.type;
-	db.collection(person, function(err, collection) {
-		collection.find({'type': type}).toArray(function(err, items) {
-			res.send(items);
-		});
-	});
-}
+    res.set('Cache-Control', 'no-cache');
+    var person = req.params.person;
+    var type = req.params.type;
+    db.collection(person, function(err, collection) {
+        collection.find({ 'type': type }).toArray(function(error, items) {
+            res.send(items);
+        });
+    });
+};
 
 exports.getDistinctTypes = function(req, res) {
-	res.set('Cache-Control', 'no-cache');
-	var person = req.params.person;
-	db.collection(person, function(err, collection) {
-		collection.distinct('type', {}, function(err, items) {
-			var types = [];
-			// console.log("getDistinctTypes(), typeof items: " + typeof items);
-			// console.log("getDistinctTypes(), items: " + items);
-			// console.log("getDistinctTypes(), getting " + items.length + " items");
-			var sendResult = _.after(items.length, function(t) { 
-				// console.log("getDistinctTypes(), sending...");
-				res.send(t); 
-			});
-			_.map(items, function(element, index, list) {
-				collection.findOne({'typeMeta': items[index]}, function(err, item) {
-					if (err) { 
-						types.push({type: items[index], prettyName: items[index]});
-					} else if (item) {
-						types.push({type: items[index], prettyName: item.prettyName});
-					} else {
-						types.push({type: items[index], prettyName: items[index]});
-					}
-					// console.log("getDistinctTypes(), item: " + items[index]);
-					sendResult(types);
-				})
-			});
-			//res.send(items);
-		});
-	});
-}
+    res.set('Cache-Control', 'no-cache');
+    var person = req.params.person;
+    db.collection(person, function(err, collection) {
+        collection.distinct('type', { }, function(err, items) {
+            var types = [];
+            // console.log("getDistinctTypes(), typeof items: " + typeof items);
+            // console.log("getDistinctTypes(), items: " + items);
+            // console.log("getDistinctTypes(), getting " + items.length + " items");
+            var sendResult = _.after(items.length, function(t) {
+                // console.log("getDistinctTypes(), sending...");
+                res.send(t);
+            });
+            _.map(items, function(element, index, list) {
+                collection.findOne({ 'typeMeta': items[index] }, function(err, item) {
+                    if (err) {
+                        types.push({ type: items[index], typeMeta: 'undefined', prettyName: items[index]  });
+                    } else if (item) {
+                        types.push( item );
+                    } else {
+                        types.push({ type: items[index], typeMeta: 'undefined', prettyName: items[index]  });
+                    }
+                    // console.log("getDistinctTypes(), item: " + items[index]);
+                    sendResult(types);
+                });
+            });
+            //res.send(items);
+        });
+    });
+};
 
 exports.add = function(req, res) {
 	var person = req.params.person;
 	db.collection(person, function(err, collection) {
-		collection.insert(req.body, {safe:true}, function(err, result) {
+		collection.insert(req.body, {safe:true}, function(error, result) {
 			if (err) {
 				res.send({'error': 'Error: '});
 			} else {

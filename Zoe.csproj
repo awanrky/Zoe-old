@@ -507,6 +507,7 @@
     <None Include="Node\node_modules\underscore\raw\underscore.psd" />
     <None Include="Node\node_modules\underscore\README.md" />
     <None Include="Node\package.json" />
+    <None Include="Node\start.bat" />
     <None Include="SetupDevelopmentEnvironment.bat" />
     <None Include="SetupProductionEnvironment.bat" />
     <None Include="SetupTestEnvironment.bat" />
