@@ -7,8 +7,8 @@
  *
  */
 function Person(name, dataLogArray) {
-	"use strict;"
-	var self = this;
+    "use strict";
+//	var self = this;
 
 	function log(data) {
 		if (!dataLogArray) { return; }
@@ -20,19 +20,19 @@ function Person(name, dataLogArray) {
 	 *
 	 * @param {function} callback
 	 */
-	this.getMeta = function(callback) {
-		$.getJSON("/person/" + name, function(data) {
-			log(data);
-			callback(data[0]);
-		});
-	}
+    this.getMeta = function(callback) {
+        $.getJSON("/person/" + name, function(data) {
+            log(data);
+            callback(data[0]);
+        });
+    };
 
-	this.getTypeData = function(type, callback) { 
-		$.getJSON('person/get-type-data/' + name + '/' + type, function(data) {
-			log(data);
-			callback(data);
-		});
-	}
+    this.getTypeData = function(type, callback) {
+        $.getJSON('person/get-type-data/' + name + '/' + type, function(data) {
+            log(data);
+            callback(data);
+        });
+    };
 
 	/**
 	 * Fills an array with a list of all the types of data that exist for this user
@@ -40,20 +40,19 @@ function Person(name, dataLogArray) {
 	 * @param {function} callback function to call after array is filled
 	 *
 	 */
-	this.getDistinctTypes = function(callback) {
-		var types = [];
+    this.getDistinctTypes = function(callback) {
+        $.getJSON("/person/get-distinct-types/" + name, function(data) {
+            log(data);
+            callback(data);
+        });
+    };
 
-		$.getJSON("/person/get-distinct-types/" + name, function(data) {
-			log(data);
-			callback(data);
-		});
-	}
-
-	this.add = function(data, callback) {
-		$.ajax("/person/" + name, {
-			data: ko.toJSON(data),
-			type: "post", contentType: "application/json",
-			complete: callback
-		});
-	}
+    this.add = function(data, callback) {
+        $.ajax("/person/" + name, {
+            data: ko.toJSON(data),
+            type: "post",
+            contentType: "application/json",
+            complete: callback
+        });
+    };
 }

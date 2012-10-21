@@ -25,14 +25,13 @@
 			</div>
 
 			<div class="content-div row-fluid">
-				<ul class="span3 nav nav-pills nav-stacked well" data-bind="foreach: { data: distinctTypes, afterRender: handleAfterPillRender }">
-					<li>
-						<a data-toggle="pill" data-bind="attr: { href: '#' + type + '-tab', 'data-type': type }">
-							<span data-bind="text: prettyName"></span>
+				<ul class="span3 nav nav-pills nav-stacked well" data-bind="foreach: types">
+					<li data-bind="css: { active: $root.current() === $data }">
+						<a href="#" data-toggle="pill" data-bind ="click: $root.onClickTab, text: name">
 						</a>
 					</li>
 				</ul>
-				<div class="span9 tab-content well" data-bind="template: { name: getTypeTemplate, foreach: distinctTypes }"></div>
+				<div class="span9 tab-content well" data-bind="template: { name: getTypeTemplate, foreach: types }"></div>
 			</div>
 		</div>
 
@@ -41,30 +40,28 @@
 		</div>
 
 		<script type="text/html" id="type-template-default">
-			<div class="tab-pane" data-bind="attr: { id: type + '-tab' }">
+			<div class="tab-pane" data-bind="css: { active: $root.current() === $data }">
 				<p>This is the default template</p>
-				<p data-bind="text: prettyName"></p>
+				<p data-bind="text: name"></p>
 			</div>
 		</script>
 
 		<script type="text/html" id="type-template-bodyWeight">
-			<div class="tab-pane" data-bind="attr: { id: type + '-tab' }">
+			<div class="tab-pane" data-bind="css: { active: $root.current() === $data }">
 				<p>This is the Body Weight template</p>
 
-				<form>
-					Weight: <input data-bind="value: $parent.currentTypeCurrentValue.value" />
-				</form>
+				Weight: <input data-bind="value: $parent.current().current().value, valueUpdate: 'afterkeydown'" />
 
-				<button data-bind="click: $parent.updateCurrentValue">Update</button>
+				<button data-bind="click: $parent.current().add">Update</button>
 
 				<div>
-					<ul data-bind="foreach: $parent.currentTypeData">
-						<li data-bind="text: value"></li>
+					<ul data-bind="foreach: $root.current().data">
+						<li data-bind="text: ko.toJSON($data)"></li>
 					</ul>
 				</div>
 
-				<p data-bind="text: JSON.stringify( $parent.currentTypeMeta() )"></p>
-				<p data-bind="text: JSON.stringify( $parent.currentTypeData() )"></p>
+				<p data-bind="text: ko.toJSON( $parent.current().meta() )"></p>
+				<p data-bind="text: ko.toJSON( $parent.current().data() )"></p>
 			</div>
 		</script>
 
