@@ -10,6 +10,9 @@
 		<script src="lib/knockout/knockout.2.1.0/knockout-2.1.0.debug.js"></script>
 		<script src="lib/bootstrap/bootstrap.2.1.1/js/bootstrap.min.js"></script>
 		<script src="Person.js"></script>
+		<script src="Type.js"></script>
+		<script src="TypeMeta.js"></script>
+        <script src="TypeData.js"></script>
 		<script src="IndexViewModel.js"></script>
 		<script src="index.js"></script>
 	</head>
@@ -51,13 +54,16 @@
 	            <div data-bind="if: $parent.current().meta().length">
 	                <p data-bind="text: $parent.current().meta()[0].prettyName"></p>
 	            </div>
-				Weight: <input data-bind="value: $parent.current().current().value, valueUpdate: 'afterkeydown'" />
+	            Weight: <input data-bind="value: $parent.current().current().value, valueUpdate: 'afterkeydown'" />
 
-				<button data-bind="click: $parent.current().add">Update</button>
+	            <button data-bind="click: $parent.current().add">Submit</button>
 
-				<div>
-					<ul data-bind="foreach: $root.current().data">
-						<li data-bind="text: ko.toJSON($data)"></li>
+	            <div>
+	                <ul data-bind="foreach: $root.current().data">
+	                    <li>
+	                        <span data-bind="text: $data.value"></span>
+                            <span data-bind="text: $data.createdOn"></span>
+	                    </li>
 					</ul>
 				</div>
 

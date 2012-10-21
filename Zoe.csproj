@@ -358,6 +358,9 @@
     <Content Include="Node\public\lib\knockout\knockout.2.1.0\knockout-2.1.0.js" />
     <Content Include="Node\public\lib\underscore\underscore.1.4.2\underscore-min.js" />
     <Content Include="Node\public\Person.js" />
+    <Content Include="Node\public\Type.js" />
+    <Content Include="Node\public\TypeData.js" />
+    <Content Include="Node\public\TypeMeta.js" />
     <Content Include="Node\routes\person.js" />
     <Content Include="Node\zoe-configuration.js" />
     <Content Include="Node\zoe-node.js" />
