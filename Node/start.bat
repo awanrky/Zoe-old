@@ -1,0 +1,1 @@
+node ./zoe-node.js >> zoe-node.log
