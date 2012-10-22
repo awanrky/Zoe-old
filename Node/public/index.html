@@ -17,7 +17,7 @@
 		<script src="index.js"></script>
 	</head>
 	<body>
-		<div class="container-fluid">
+		<div class="container-fluid" style="min-height: 100%">
 
 			<div class="navbar">
 				<div class="navbar-inner">
@@ -38,10 +38,6 @@
 			</div>
 		</div>
 
-		<div data-bind="foreach: receivedData">
-			<p data-bind="text: d"></p>
-		</div>
-
 		<script type="text/html" id="type-template-default">
 			<div class="tab-pane" data-bind="css: { active: $root.current() === $data }">
 				<p>This is the default template</p>
@@ -51,24 +47,46 @@
 
 	    <script type="text/html" id="type-template-bodyWeight">
 	        <div class="tab-pane" data-bind="css: { active: $root.current() === $data }">
+                     
+
 	            <div data-bind="if: $parent.current().meta().length">
 	                <p data-bind="text: $parent.current().meta()[0].prettyName"></p>
 	            </div>
 	            Weight: <input data-bind="value: $parent.current().current().value, valueUpdate: 'afterkeydown'" />
 
 	            <button data-bind="click: $parent.current().add">Submit</button>
+                
+	            <div class="body-weight-list-content">	                        
 
-	            <div>
-	                <ul data-bind="foreach: $root.current().data">
-	                    <li>
-	                        <span data-bind="text: $data.value"></span>
-                            <span data-bind="text: $data.createdOn"></span>
-	                    </li>
-					</ul>
-				</div>
+	                <table class="table">
+	                    <thead>
+	                        <tr>
+	                            <th></th>
+	                            <th>Weight</th>
+	                            <th>Date</th>
+	                        </tr>
+	                    </thead>
+	                    <tbody data-bind="foreach: $root.current().data">
+	                        <tr>
+	                            <td>
+	                                <a ><i class="icon-remove"></i></a>
+	                                <a><i class="icon-edit"></i></a>
+	                            </td>
+	                            <td data-bind="text: $data.value"></td>
+	                            <td data-bind="text: $data.createdOn().toLocaleString()"></td>
+	                        </tr>
+	                        <tr data-bind="attr: { id: 'alert_' + $data._id()}" class="alert alert-block alert-error fade in">
+	                            <td colspan="3">
+                                    <a class="btn btn-danger" data-bind="click: $parent.delete" href="#">Delete</a> 
+	                                <a class="btn" data-dismiss="alert" href="#">Cancel</a>
+	                            </td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
 
-				<p data-bind="text: ko.toJSON( $parent.current().meta() )"></p>
-				<p data-bind="text: ko.toJSON( $parent.current().data() )"></p>
+	            <!--				<p data-bind="text: ko.toJSON( $parent.current().meta() )"></p>-->
+<!--				<p data-bind="text: ko.toJSON( $parent.current().data() )"></p>-->
 			</div>
 		</script>
 

@@ -1,7 +1,21 @@
 .tab-content {
-	height: 600px;
+    overflow: hidden;
+    height: 100%;
 }
 
 .content-div {
-	height: 650px;
+	height: 100%
+}
+
+.body-weight-list-content {
+    overflow: auto;
+    height: 100%;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
 }

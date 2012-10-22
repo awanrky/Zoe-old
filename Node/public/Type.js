@@ -21,12 +21,19 @@
                 }
             });
         });
+        $('.alert').alert('close');
     };
 
     this.add = function () {
         person.add(this.current().setModifiedOn(), function (jqXhr, status) {
             self.refresh();
             self.current(new TypeData(self.meta));
+        });
+    };
+
+    this.delete = function(data) {
+        person.delete(data._id(), function() {
+            self.refresh();
         });
     };
 

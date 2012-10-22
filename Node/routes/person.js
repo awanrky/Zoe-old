@@ -92,51 +92,51 @@ exports.getDistinctTypes = function(req, res) {
 };
 
 exports.add = function(req, res) {
-	var person = req.params.person;
-	db.collection(person, function(err, collection) {
-		collection.insert(req.body, {safe:true}, function(error, result) {
-			if (err) {
-				res.send({'error': 'Error: '});
-			} else {
-				console.log('Added: ' + JSON.stringify(result[0]));
-				res.send(result[0]);
-			}
-		});
-	});
-}
+    var person = req.params.person;
+    db.collection(person, function(err, collection) {
+        collection.insert(req.body, { safe: true }, function(error, result) {
+            if (err) {
+                res.send({ 'error': 'Error: ' });
+            } else {
+                console.log('Added: ' + JSON.stringify(result[0]));
+                res.send(result[0]);
+            }
+        });
+    });
+};
 
 exports.update = function(req, res) {
-	var person = req.params.person;
-	var id = req.params.id;
-	var data = req.body;
+    var person = req.params.person;
+    var id = req.params.id;
+    var data = req.body;
 
-	console.log("Updating: " + id);
+    console.log("Updating: " + id);
 
-	db.collection(person, function(err, collection) {
-		collection.update({'_id':new BSON.ObjectID(id)}, data, {safe:true}, function(err, result) {
-			if(err) {
-				console.log('Error updating ' + id + ': ' + err);
-				res.send({'error':'Error updating ' + id});
-			} else {
-				console.log('' + result + ' document(s) updated.');
-				res.send(data);
-			}
-		});
-	});
-}
+    db.collection(person, function(err, collection) {
+        collection.update({ '_id': new BSON.ObjectID(id) }, data, { safe: true }, function(err, result) {
+            if (err) {
+                console.log('Error updating ' + id + ': ' + err);
+                res.send({ 'error': 'Error updating ' + id });
+            } else {
+                console.log('' + result + ' document(s) updated.');
+                res.send(data);
+            }
+        });
+    });
+};
 
 exports.delete = function(req, res) {
-	var person = req.params.person;
-	var id = req.params.id;
-	console.log('Deleting: ' + id + ' from: ' + person);
-	db.collection(person, function(err, collection) {
-		collection.remove({'_id':new BSON.ObjectID(id)}, {safe:true}, function(err, result) {
-			if(err) {
-				res.send({'error': 'Error: ' + err});
-			} else {
-				console.log('' + result + ' document(s) deleted.');
-				res.send(req.body);
-			}
-		});
-	});
-}
+    var person = req.params.person;
+    var id = req.params.id;
+    console.log('Deleting: ' + id + ' from: ' + person);
+    db.collection(person, function(err, collection) {
+        collection.remove({ '_id': new BSON.ObjectID(id) }, { safe: true }, function(err, result) {
+            if (err) {
+                res.send({ 'error': 'Error: ' + err });
+            } else {
+                console.log('' + result + ' document(s) deleted.');
+                res.send(req.body);
+            }
+        });
+    });
+};

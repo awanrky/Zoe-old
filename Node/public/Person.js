@@ -55,4 +55,11 @@ function Person(name, dataLogArray) {
             complete: callback
         });
     };
+
+    this.delete = function(id, callback) {
+        $.ajax("/person/" + name + '/' + id, {
+            type: "delete",
+            complete: callback
+        });
+    };
 }

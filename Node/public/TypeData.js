@@ -11,6 +11,7 @@
     this.description = ko.observable();
     this.source = ko.observable();
     this.value = ko.observable();
+    this.uom = ko.observable();
 
     function initialize(value) {
         self.type(typeMeta().type());
@@ -18,9 +19,9 @@
             return;
         }
         self._id(value._id);
-        self.createdOn(value.createdOn);
-        self.modifiedOn(value.modifiedOn);
-        self.date(value.date);
+        self.createdOn(new Date(value.createdOn));
+        self.modifiedOn(new Date(value.modifiedOn));
+        self.date(new Date(value.date));
         self.name(value.name);
         self.description(value.description);
         self.source(value.source);
