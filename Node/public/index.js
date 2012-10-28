@@ -6,7 +6,7 @@
 	$(document).ready(function() {
 
 		ko.applyBindings(indexViewModel);
-		$('.alert').alert('close')
+		
 	});
 
 }());

@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Zoe</title>
-		<link href="lib/bootstrap/bootstrap.2.1.1/css/bootstrap.min.css" rel="stylesheet">
-		<link href="lib/bootstrap/bootstrap.2.1.1/css/bootstrap-responsive.min.css" rel="stylesheet">
-		<link href="index.css" rel="stylesheet">
-		<script src="lib/underscore/underscore.1.4.2/underscore-min.js"></script>
-		<script src="lib/jquery/jquery.1.8.2/jquery-1.8.2.js"></script>
-		<script src="lib/knockout/knockout.2.1.0/knockout-2.1.0.debug.js"></script>
-		<script src="lib/bootstrap/bootstrap.2.1.1/js/bootstrap.min.js"></script>
-		<script src="Person.js"></script>
-		<script src="Type.js"></script>
-		<script src="TypeMeta.js"></script>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Zoe</title>
+        <link href="lib/bootstrap/bootstrap.2.1.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="lib/bootstrap/bootstrap.2.1.1/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="index.css" rel="stylesheet">
+        <script src="lib/underscore/underscore.1.4.2/underscore-min.js"></script>
+        <script src="lib/jquery/jquery.1.8.2/jquery-1.8.2.js"></script>
+        <script src="lib/knockout/knockout.2.1.0/knockout-2.1.0.debug.js"></script>
+        <script src="lib/bootstrap/bootstrap.2.1.1/js/bootstrap.min.js"></script>
+        <script src="Person.js"></script>
+        <script src="Type.js"></script>
+        <script src="TypeMeta.js"></script>
         <script src="TypeData.js"></script>
-		<script src="IndexViewModel.js"></script>
-		<script src="index.js"></script>
-	</head>
+        <script src="IndexViewModel.js"></script>
+        <script src="index.js"></script>
+    </head>
 	<body>
 		<div class="container-fluid" style="min-height: 100%">
 
@@ -47,15 +48,12 @@
 
 	    <script type="text/html" id="type-template-bodyWeight">
 	        <div class="tab-pane" data-bind="css: { active: $root.current() === $data }">
-                     
-
-	            <div data-bind="if: $parent.current().meta().length">
-	                <p data-bind="text: $parent.current().meta()[0].prettyName"></p>
-	            </div>
-	            Weight: <input data-bind="value: $parent.current().current().value, valueUpdate: 'afterkeydown'" />
-
-	            <button data-bind="click: $parent.current().add">Submit</button>
-                
+                <form class="form-search">
+	                <div class="input-append">
+	                    <input class="span4 search-query" data-bind="value: $parent.current().current().value">
+                        <button data-bind="click: $parent.current().add" class="btn">Add Weight</button>
+	                </div>
+                </form>
 	            <div class="body-weight-list-content">	                        
 
 	                <table class="table">
@@ -69,17 +67,21 @@
 	                    <tbody data-bind="foreach: $root.current().data">
 	                        <tr>
 	                            <td>
-	                                <a ><i class="icon-remove"></i></a>
-	                                <a><i class="icon-edit"></i></a>
+	                                <div class="btn-group" style="font-size: 100%;">
+	                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	                                        <i class="icon-remove"></i>
+	                                    </a>
+	                                    <a>
+	                                        <i class="icon-edit"></i>
+                                        </a>
+	                                    <ul class="dropdown-menu">
+                                            <li><a class="btn btn-danger" data-bind="click: $parent.delete" href="#">Delete</a> </li>
+	                                    </ul>
+	                                </div>
+	                                
 	                            </td>
 	                            <td data-bind="text: $data.value"></td>
 	                            <td data-bind="text: $data.createdOn().toLocaleString()"></td>
-	                        </tr>
-	                        <tr data-bind="attr: { id: 'alert_' + $data._id()}" class="alert alert-block alert-error fade in">
-	                            <td colspan="3">
-                                    <a class="btn btn-danger" data-bind="click: $parent.delete" href="#">Delete</a> 
-	                                <a class="btn" data-dismiss="alert" href="#">Cancel</a>
-	                            </td>
 	                        </tr>
 	                    </tbody>
 	                </table>
