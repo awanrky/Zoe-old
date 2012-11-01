@@ -28,7 +28,7 @@ function Person(name, dataLogArray) {
     };
 
     this.getTypeData = function(type, callback) {
-        $.getJSON('person/get-type-data/' + name + '/' + type, function(data) {
+        $.getJSON('person/get-type-data/' + name + '/' + type + '/date/-1', function(data) {
             log(data);
             callback(data);
         });

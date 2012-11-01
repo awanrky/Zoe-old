@@ -63,8 +63,10 @@ exports.getTypeData = function(req, res) {
     res.set('Cache-Control', 'no-cache');
     var person = req.params.person;
     var type = req.params.type;
+    var orderBy = {};
+    orderBy[req.params.orderBy || '_id'] = Number(req.params.order) || 1;
     db.collection(person, function(err, collection) {
-        collection.find({ 'type': type }).toArray(function(error, items) {
+        collection.find({ 'type': type }).sort(orderBy).toArray(function(error, items) {
             res.send(items);
         });
     });
