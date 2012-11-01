@@ -1,7 +1,7 @@
 // modified code from http://coenraets.org/blog/2012/10/creating-a-rest-api-using-node-js-express-and-mongodb/
 
 var mongo = require('mongodb'),
-	configuration = require('../configuration'),
+	configuration = require('../zoe-configuration'),
 	_ = require('underscore');
 
 var Server = mongo.Server,
