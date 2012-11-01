@@ -21,7 +21,7 @@ function Person(name, dataLogArray) {
 	 * @param {function} callback
 	 */
     this.getMeta = function(callback) {
-        $.getJSON("/person/" + name, function(data) {
+        $.getJSON("/person/get-meta/" + name, function(data) {
             log(data);
             callback(data[0]);
         });

@@ -10,6 +10,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/person/get-distinct-types/:person', person.getDistinctTypes);
 app.get('/person/get-type-data/:person/:type', person.getTypeData);
+app.get('/person/get-meta/:person', person.getMeta);
 app.get('/person/:person', person.getAll);
 app.get('/person/:person/:id', person.getById);
 app.post('/person/:person', person.add);

@@ -28,26 +28,36 @@ db.open(function(err, db) {
 });
 
 exports.getById = function(req, res) {
-	res.set('Cache-Control', 'no-cache');
-	var person = req.params.person;
-	var id = req.params.id;
-	console.log('Retreiving: ' + id);
-	db.collection(person, function(err, collection) {
-		collection.findOne({'_id':new BSON.ObjectID(id)}, function (err, item) {
-			res.send(item);
-		});
-	});
-}
+    res.set('Cache-Control', 'no-cache');
+    var person = req.params.person;
+    var id = req.params.id;
+    console.log('Retreiving: ' + id);
+    db.collection(person, function(err, collection) {
+        collection.findOne({ '_id': new BSON.ObjectID(id) }, function(err, item) {
+            res.send(item);
+        });
+    });
+};
 
 exports.getAll = function(req, res) {
-	res.set('Cache-Control', 'no-cache');
-	var person = req.params.person;
-	db.collection(person, function(err, collection) {
-		collection.find().toArray(function(err, items) {
-			res.send(items);
-		});
-	});
-}
+    res.set('Cache-Control', 'no-cache');
+    var person = req.params.person;
+    db.collection(person, function(err, collection) {
+        collection.find().toArray(function(err, items) {
+            res.send(items);
+        });
+    });
+};
+
+exports.getMeta = function (req, res) {
+    res.set('Cache-Control', 'no-cache');
+    var person = req.params.person;
+    db.collection(person, function (err, collection) {
+        collection.find({'collectionMeta': 'collectionMeta'}).toArray(function (err, items) {
+            res.send(items);
+        });
+    });
+};
 
 exports.getTypeData = function(req, res) {
     res.set('Cache-Control', 'no-cache');
@@ -64,7 +74,7 @@ exports.getDistinctTypes = function(req, res) {
     res.set('Cache-Control', 'no-cache');
     var person = req.params.person;
     db.collection(person, function(err, collection) {
-        collection.distinct('type', { }, function(err, items) {
+        collection.distinct('type', { 'type': { $exists: true, $ne: 'meta' } }, function(err, items) {
             var types = [];
             // console.log("getDistinctTypes(), typeof items: " + typeof items);
             // console.log("getDistinctTypes(), items: " + items);
