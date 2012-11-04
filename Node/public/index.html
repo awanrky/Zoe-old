@@ -57,7 +57,7 @@
 	                <div class="control-group">
 	                    <label class="control-label" for="gasoline-purchase-datetime">Date</label>
 	                    <div class="controls">
-                            <input data-bind="value: $parent.current().current().date" type="date" id="gasoline-purchase-datetime" placeholder="Leave blank for current date"/>
+	                        <input data-bind="value: $parent.current().current().date" type="date" id="gasoline-purchase-datetime" placeholder="Leave blank for current date"/>
 	                    </div>
 	                </div>
 
@@ -96,15 +96,17 @@
 	                            <option value="Unleaded - 85">Unleaded - 85</option>    
 	                            <option value="Unleaded - 87">Unleaded - 87</option>
 	                            <option value="Unleaded - 89">Unleaded - 89</option>
-                                <option value="E - 85">E - 85</option>
+	                            <option value="E - 85">E - 85</option>
 	                        </select>
 	                    </div>
-                    </div>
+	                </div>
 
 	                <div class="control-group">
 	                    <label class="control-label" for="gasoline-purchase-store">Store</label>
 	                    <div class="controls">
-	                        <select data-bind="value: $parent.current().current().store" id="gasoline-purchase-store"></select>
+	                        <select data-bind="value: $parent.current().current().store" id="gasoline-purchase-store">
+	                            <option value="Murphy 6519">Murphy 6519</option>
+	                        </select>
 	                        <button id="gasoline-purchase-new-store-button" class="btn btn-info"><i class="icon-plus"></i></button>
 	                    </div>
 	                </div>
@@ -112,7 +114,9 @@
 	                <div class="control-group">
 	                    <label class="control-label" for="gasoline-purchase-payment-method">Payment Method</label>
 	                    <div class="controls">
-	                        <select data-bind="value: $parent.current().current().paymentMethod" id="gasoline-purchase-payment-method"></select>
+	                        <select data-bind="value: $parent.current().current().paymentMethod" id="gasoline-purchase-payment-method">
+                                <option value="Arvest Visa">Arvest Visa</option>
+	                        </select>
 	                        <button id="gasoline-purchase-new-payment-method-button" class="btn btn-info"><i class="icon-plus"></i></button>
 	                    </div>
 	                </div>
@@ -122,19 +126,60 @@
 	                    <div class="controls">
 	                        <select data-bind="value: $parent.current().current().vehicle" id="gasoline-purchase-vehicle">
 	                            <option value="Silverado">Silverado</option>
-                                <option value="Miata">Miata</option>
-                            </select>
-<!--	                        <button id="gasoline-purchase-new-vehicle-button" class="btn btn-info"><i class="icon-plus"></i></button>-->
+	                            <option value="Miata">Miata</option>
+	                        </select>
+	                        <!--	                        <button id="gasoline-purchase-new-vehicle-button" class="btn btn-info"><i class="icon-plus"></i></button>-->
 	                    </div>
 	                </div>
 
 	                <div class="control-group">
-                        <div class="controls">
-                            <button id="gasoline-purchase-add-button" data-bind="click: $parent.current().add" class="btn">Add Purchase</button>
+	                    <div class="controls">
+	                        <button id="gasoline-purchase-add-button" data-bind="click: $parent.current().add" class="btn btn-primary">Add Purchase</button>
 	                    </div>
 	                </div>
-                </form>
-            </div>
+	            </form>
+                
+	            <div class="list-content">	           
+	                <table class="table">
+	                    <thead>
+	                        <tr>
+	                            <th></th>
+	                            <th>Date</th>
+	                            <th>Mileage</th>
+	                            <th>Odometer</th>
+	                            <th>Gallons</th>
+	                            <th>Price/Gallon</th>
+	                            <th>Total</th>
+	                        </tr>
+	                    </thead>
+	                    <tbody data-bind="foreach: $root.current().data">
+	                        <tr>
+	                            <td>
+	                                <div class="btn-group" style="font-size: 100%;">
+	                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+	                                        <i class="icon-remove"></i>
+	                                    </a>
+	                                    <a>
+	                                        <i class="icon-edit"></i>
+	                                    </a>
+	                                    <ul class="dropdown-menu">
+	                                        <li><a class="btn btn-danger" data-bind="click: $parent.delete" href="#">Delete</a> </li>
+	                                    </ul>
+	                                </div>
+	                                
+	                            </td>
+	                            <td data-bind="text: $data.date().toLocaleDateString()"></td>
+	                            <td></td>
+	                            <td data-bind="text: $data.odometerReading"></td>
+	                            <td data-bind="text: $data.totalGallons"></td>
+	                            <td data-bind="text: $data.dollarsPerGallon"></td>
+                                <td data-bind="text: $data.totalDollars"></td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	            </div>
+
+	        </div>
 	    </script>
 
 	    <script type="text/html" id="type-template-bodyWeight">
@@ -145,7 +190,7 @@
                         <button data-bind="click: $parent.current().add" class="btn">Add Weight</button>
 	                </div>
                 </form>
-	            <div class="body-weight-list-content">	           
+	            <div class="list-content">	           
 	                <table class="table">
 	                    <thead>
 	                        <tr>

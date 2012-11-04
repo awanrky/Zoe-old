@@ -6,7 +6,7 @@
     this.odometerReading = ko.observable();
     this.totalGallons = ko.observable();
     this.dollarsPerGallon = ko.observable();
-    this.totalCharge = ko.observable();
+    this.totalDollars = ko.observable();
     this.gasolineType = ko.observable();
     this.store = ko.observable();
     this.paymentMethod = ko.observable();
@@ -19,7 +19,7 @@
     this.odometerReading(data.odometerReading);
     this.totalGallons(data.totalGallons);
     this.dollarsPerGallon(data.dollarsPerGallon);
-    this.totalCharge(data.totalCharge);
+    this.totalDollars(data.totalDollars);
     this.gasolineType(data.gasolineType);
     this.store(data.store);
     this.paymentMethod(data.paymentMethod);
