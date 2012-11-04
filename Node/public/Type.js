@@ -4,7 +4,7 @@
 
     this.meta = ko.observable(new TypeMeta(typeMeta || {}));
     this.data = ko.observableArray();
-    this.current = ko.observable(new TypeData(self.meta));
+    this.current = ko.observable(TypeData.getNewTypeData(self.meta()));
     this.name = ko.computed(function () {
         return self.meta().type();
     });
@@ -14,19 +14,19 @@
 
     this.refresh = function () {
         self.data.removeAll();
-        person.getTypeData(this.name(), function (data) {
+        person.getTypeData(self.name(), function (data) {
             $.each(data, function (index, value) {
                 if (value.typeMeta !== self.name()) {
-                    self.data.push(new TypeData(self.meta, value));
+                    self.data.push(TypeData.getNewTypeData(self.meta(), value));
                 }
             });
         });
     };
 
     this.add = function () {
-        person.add(this.current().setModifiedOn(), function (jqXhr, status) {
+        person.add(self.current().setModifiedOn(), function (jqXhr, status) {
             self.refresh();
-            self.current(new TypeData(self.meta));
+            self.current(TypeData.getNewTypeData(self.meta()));
         });
     };
 

@@ -339,10 +339,12 @@
     <Content Include="Node\node_modules\underscore\index.js" />
     <Content Include="Node\node_modules\underscore\underscore-min.js" />
     <Content Include="Node\node_modules\underscore\underscore.js" />
+    <Content Include="Node\public\GasolinePurchaseTypeData.js" />
     <Content Include="Node\public\index.css" />
     <Content Include="Node\public\index.html" />
     <Content Include="Node\public\index.js" />
     <Content Include="Node\public\IndexViewModel.js" />
+    <Content Include="Node\public\lib\aisa\aisa.0.0.1\aisa.js" />
     <Content Include="Node\public\lib\bootstrap\bootstrap.2.1.1\css\bootstrap-responsive.css" />
     <Content Include="Node\public\lib\bootstrap\bootstrap.2.1.1\css\bootstrap-responsive.min.css" />
     <Content Include="Node\public\lib\bootstrap\bootstrap.2.1.1\css\bootstrap.css" />
@@ -362,6 +364,7 @@
     <Content Include="Node\public\Type.js" />
     <Content Include="Node\public\TypeData.js" />
     <Content Include="Node\public\TypeMeta.js" />
+    <Content Include="Node\public\BodyWeightTypeData.js" />
     <Content Include="Node\routes\person.js" />
     <Content Include="Node\zoe-configuration.js" />
     <Content Include="Node\zoe-node.js" />

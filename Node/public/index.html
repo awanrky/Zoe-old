@@ -11,10 +11,13 @@
         <script src="lib/jquery/jquery.1.8.2/jquery-1.8.2.js"></script>
         <script src="lib/knockout/knockout.2.1.0/knockout-2.1.0.debug.js"></script>
         <script src="lib/bootstrap/bootstrap.2.1.1/js/bootstrap.min.js"></script>
+        <script src="lib/aisa/aisa.0.0.1/aisa.js"></script>
         <script src="Person.js"></script>
         <script src="Type.js"></script>
         <script src="TypeMeta.js"></script>
         <script src="TypeData.js"></script>
+        <script src="BodyWeightTypeData.js"></script>
+        <script src="GasolinePurchaseTypeData.js"></script>
         <script src="IndexViewModel.js"></script>
         <script src="index.js"></script>
     </head>
@@ -40,12 +43,99 @@
 			</div>
 		</div>
 
-		<script type="text/html" id="type-template-default">
-			<div class="tab-pane" data-bind="css: { active: $root.current() === $data }">
-				<p>This is the default template</p>
-				<p data-bind="text: name"></p>
-			</div>
-		</script>
+	    <script type="text/html" id="type-template-default">
+	        <div class="tab-pane" data-bind="css: { active: $root.current() === $data }">
+	            <p>This is the default template</p>
+	            <p data-bind="text: name"></p>
+	        </div>
+	    </script>
+        
+	    <script type="text/html" id="type-template-gasolinePurchase">
+	        <div class="tab-pane" data-bind="css: { active: $root.current() === $data }">
+	            <form class="form-search form-horizontal">
+                    
+	                <div class="control-group">
+	                    <label class="control-label" for="gasoline-purchase-datetime">Date</label>
+	                    <div class="controls">
+                            <input data-bind="value: $parent.current().current().date" type="date" id="gasoline-purchase-datetime" placeholder="Leave blank for current date"/>
+	                    </div>
+	                </div>
+
+	                <div class="control-group">
+	                    <label class="control-label" for="gasoline-purchase-odometer">Odomerter Reading</label>
+	                    <div class="controls">
+	                        <input data-bind="value: $parent.current().current().odometerReading" type="number" id="gasoline-purchase-odometer" placeholder="Odometer Reading"/>
+	                    </div>
+	                </div>
+                    
+	                <div class="control-group">
+	                    <label class="control-label" for="gasoline-purchase-total-gallons">Total Gallons</label>
+	                    <div class="controls">
+	                        <input data-bind="value: $parent.current().current().totalGallons" type="number" id="gasoline-purchase-total-gallons" placeholder="Total Gallons"/>
+	                    </div>
+	                </div>
+                    
+	                <div class="control-group">
+	                    <label class="control-label" for="gasoline-purchase-dollars-per-gallon">Dollars/Gallon</label>
+	                    <div class="controls">
+	                        <input data-bind="value: $parent.current().current().dollarsPerGallon" type="number" id="gasoline-purchase-dollars-per-gallon" placeholder="Dollars/Gallon"/>
+	                    </div>
+	                </div>
+                    
+	                <div class="control-group">
+	                    <label class="control-label" for="gasoline-purchase-total-dollars">Total Charge</label>
+	                    <div class="controls">
+	                        <input data-bind="value: $parent.current().current().totalDollars" type="text" id="gasoline-purchase-total-dollars" placeholder="Total Charge"/>
+	                    </div>
+	                </div>
+                    
+	                <div class="control-group">
+	                    <label class="control-label" for="gasoline-purchase-gasoline-type">Gasoline Type</label>
+	                    <div class="controls">
+	                        <select data-bind="value: $parent.current().current().gasolineType" id="gasoline-purchase-gasoline-type">
+	                            <option value="Unleaded - 85">Unleaded - 85</option>    
+	                            <option value="Unleaded - 87">Unleaded - 87</option>
+	                            <option value="Unleaded - 89">Unleaded - 89</option>
+                                <option value="E - 85">E - 85</option>
+	                        </select>
+	                    </div>
+                    </div>
+
+	                <div class="control-group">
+	                    <label class="control-label" for="gasoline-purchase-store">Store</label>
+	                    <div class="controls">
+	                        <select data-bind="value: $parent.current().current().store" id="gasoline-purchase-store"></select>
+	                        <button id="gasoline-purchase-new-store-button" class="btn btn-info"><i class="icon-plus"></i></button>
+	                    </div>
+	                </div>
+                    
+	                <div class="control-group">
+	                    <label class="control-label" for="gasoline-purchase-payment-method">Payment Method</label>
+	                    <div class="controls">
+	                        <select data-bind="value: $parent.current().current().paymentMethod" id="gasoline-purchase-payment-method"></select>
+	                        <button id="gasoline-purchase-new-payment-method-button" class="btn btn-info"><i class="icon-plus"></i></button>
+	                    </div>
+	                </div>
+                    
+	                <div class="control-group">
+	                    <label class="control-label" for="gasoline-purchase-vehicle">Vehicle</label>
+	                    <div class="controls">
+	                        <select data-bind="value: $parent.current().current().vehicle" id="gasoline-purchase-vehicle">
+	                            <option value="Silverado">Silverado</option>
+                                <option value="Miata">Miata</option>
+                            </select>
+<!--	                        <button id="gasoline-purchase-new-vehicle-button" class="btn btn-info"><i class="icon-plus"></i></button>-->
+	                    </div>
+	                </div>
+
+	                <div class="control-group">
+                        <div class="controls">
+                            <button id="gasoline-purchase-add-button" data-bind="click: $parent.current().add" class="btn">Add Purchase</button>
+	                    </div>
+	                </div>
+                </form>
+            </div>
+	    </script>
 
 	    <script type="text/html" id="type-template-bodyWeight">
 	        <div class="tab-pane" data-bind="css: { active: $root.current() === $data }">
@@ -55,8 +145,7 @@
                         <button data-bind="click: $parent.current().add" class="btn">Add Weight</button>
 	                </div>
                 </form>
-	            <div class="body-weight-list-content">	                        
-
+	            <div class="body-weight-list-content">	           
 	                <table class="table">
 	                    <thead>
 	                        <tr>

@@ -14,7 +14,7 @@
     this.uom = ko.observable();
 
     function initialize(value) {
-        self.type(typeMeta().type());
+        self.type(typeMeta.type());
         if (!value) {
             return;
         }
@@ -26,7 +26,7 @@
         self.description(value.description);
         self.source(value.source);
         self.value(value.value);
-    };
+    }
     
     this.setModifiedOn = function (date) {
         if (typeof date === 'undefined') {
@@ -46,3 +46,14 @@
 
     initialize(data);
 }
+
+TypeData.getNewTypeData = function(typeMeta, data) {
+    switch (typeMeta.type()) {
+        case 'bodyWeight':
+            return new BodyWeightTypeData(typeMeta, data);
+        case 'gasolinePurchase':
+            return new GasolinePurchaseTypeData(typeMeta, data);
+        default:
+            return new TypeData(typeMeta, data);
+    }
+};
