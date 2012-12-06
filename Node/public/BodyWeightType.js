@@ -9,7 +9,9 @@
 
     this.onRefresh = function() {
         if (typeof chart === 'undefined') {
-            chart = new Zoe.BodyWeightChart('bodyWeight-chart');
+            chart = new Zoe.BodyWeightChart({
+                containingDiv: 'bodyWeight-chart'
+            });
         }
         chart.refresh(self);
     };
