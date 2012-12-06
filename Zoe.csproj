@@ -339,6 +339,7 @@
     <Content Include="Node\node_modules\underscore\index.js" />
     <Content Include="Node\node_modules\underscore\underscore-min.js" />
     <Content Include="Node\node_modules\underscore\underscore.js" />
+    <Content Include="Node\public\BodyWeightType.js" />
     <Content Include="Node\public\GasolinePurchaseTypeData.js" />
     <Content Include="Node\public\index.css" />
     <Content Include="Node\public\index.html" />
@@ -359,12 +360,15 @@
     <Content Include="Node\public\lib\knockout\knockout.2.1.0\knockout-2.1.0.debug.js" />
     <Content Include="Node\public\lib\knockout\knockout.2.1.0\knockout-2.1.0.js" />
     <Content Include="Node\public\lib\modernizr\modernizr.2.6.2\modernizr.js" />
+    <Content Include="Node\public\lib\raphael\raphael-min.js" />
+    <Content Include="Node\public\lib\raphael\raphael.js" />
     <Content Include="Node\public\lib\underscore\underscore.1.4.2\underscore-min.js" />
     <Content Include="Node\public\Person.js" />
     <Content Include="Node\public\Type.js" />
     <Content Include="Node\public\TypeData.js" />
     <Content Include="Node\public\TypeMeta.js" />
     <Content Include="Node\public\BodyWeightTypeData.js" />
+    <Content Include="Node\public\Zoe.js" />
     <Content Include="Node\routes\person.js" />
     <Content Include="Node\zoe-configuration.js" />
     <Content Include="Node\zoe-node.js" />
@@ -518,6 +522,12 @@
     <None Include="SetupDevelopmentEnvironment.bat" />
     <None Include="SetupProductionEnvironment.bat" />
     <None Include="SetupTestEnvironment.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Node\public\BodyWeightChart.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />

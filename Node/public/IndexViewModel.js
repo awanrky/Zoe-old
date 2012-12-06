@@ -33,7 +33,7 @@ function IndexViewModel() {
 	    types.removeAll();
 	    person.getDistinctTypes(function (typesArray) {
 	        $.each(typesArray, function (index, typeMeta) {
-	            types.push(new Type(typeMeta, person));
+	            types.push(Type.getNewType(typeMeta, person));
 	        });
 	    });
 	};

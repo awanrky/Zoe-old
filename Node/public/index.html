@@ -11,9 +11,13 @@
         <script src="lib/jquery/jquery.1.8.2/jquery-1.8.2.js"></script>
         <script src="lib/knockout/knockout.2.1.0/knockout-2.1.0.debug.js"></script>
         <script src="lib/bootstrap/bootstrap.2.1.1/js/bootstrap.min.js"></script>
+        <script src="lib/raphael/raphael.js"></script>
         <script src="lib/aisa/aisa.0.0.1/aisa.js"></script>
+        <script src="Zoe.js"></script>
+        <script src="BodyWeightChart.js"></script>
         <script src="Person.js"></script>
         <script src="Type.js"></script>
+        <script src="BodyWeightType.js"></script>
         <script src="TypeMeta.js"></script>
         <script src="TypeData.js"></script>
         <script src="BodyWeightTypeData.js"></script>
@@ -183,7 +187,8 @@
 	    </script>
 
 	    <script type="text/html" id="type-template-bodyWeight">
-	        <div class="tab-pane" data-bind="css: { active: $root.current() === $data }">
+	        <div id="bodyWeight-parent-div" class="tab-pane" data-bind="css: { active: $root.current() === $data }">
+                <div id="bodyWeight-chart"></div>
                 <form class="form-search">
 	                <div class="input-append">
 	                    <input type="number" class="span4 search-query" data-bind="value: $parent.current().current().value">
