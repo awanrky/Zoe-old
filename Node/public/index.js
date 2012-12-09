@@ -11,10 +11,4 @@
 
 	});
 
-//    $(window).load(function() {
-//        $('a[data-toggle="pill"]').on('shown', function(e) {
-//	        new Zoe.BodyWeightChart('bodyWeight-chart', indexViewModel);
-//	    });
-//    });
-
 }());
