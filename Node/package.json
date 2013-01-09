@@ -6,6 +6,7 @@
 		"express": "3.x",
 		"mongodb": "*",
 		"underscore": "*",
-		"mocha": "*"
+		"mocha": "*",
+		"chai": "*"
 	}
 }

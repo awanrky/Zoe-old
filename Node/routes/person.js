@@ -1,31 +1,10 @@
 // modified code from http://coenraets.org/blog/2012/10/creating-a-rest-api-using-node-js-express-and-mongodb/
 
-var mongo = require('mongodb'),
-	configuration = require('../zoe-configuration'),
-	_ = require('underscore');
+var	configuration = require('../zoe-configuration'),
+	_ = require('underscore'),
+    mongo = require('../zoe/mongodb');
 
-var Server = mongo.Server,
-	Db = mongo.Db,
-	BSON = mongo.BSONPure;
-
-var server = new Server(
-	configuration.databaseServer, 
-	configuration.databasePort, 
-	{auto_reconnect: true}
-);
-db = new Db(configuration.databaseName, server, {safe:true});
-
-db.open(function(err, db) {
-	if (!err) {
-		console.log(
-			"Connected to " + 
-			configuration.databaseServer +
-			":" +
-			configuration.databasePort +
-			"/" +
-			configuration.databaseName);
-	}
-});
+var db = mongo(configuration, console).db;
 
 exports.getById = function(req, res) {
     res.set('Cache-Control', 'no-cache');

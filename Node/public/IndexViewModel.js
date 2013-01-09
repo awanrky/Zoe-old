@@ -1,13 +1,8 @@
-function IndexViewModel() {
+function IndexViewModel(person) {
     "use strict";
 	var self = this;
-
-	/**
-	 * An ObservableArray that holds one element for each ajax call made
-	 */
-	this.receivedData = ko.observableArray([{ d: '' }]);
     
-	var person = new Person('Mark', this.receivedData);
+    this.receivedData = person.receivedData;
     
 	this.current = ko.observable(new Type());
     this.types = ko.observableArray();
