@@ -521,6 +521,10 @@
     <Content Include="Node\public\lib\underscore\underscore.1.4.2\underscore-min.js" />
     <Content Include="Node\public\Person.js" />
     <Content Include="Node\public\Tests\chai.js" />
+    <Content Include="Node\public\Tests\Node\test\bodyWeight-tests.js" />
+    <Content Include="Node\public\Tests\Node\test\mocks\bodyWeight.js" />
+    <Content Include="Node\public\Tests\Node\test\mocks\express.js" />
+    <Content Include="Node\public\Tests\Node\test\mocks\logger.js" />
     <Content Include="Node\public\Tests\Node\test\mongodb-tests.js" />
     <Content Include="Node\public\Tests\Web\PersonMock.js" />
     <Content Include="Node\public\Tests\Web\ViewModelTests.js" />
@@ -530,7 +534,7 @@
     <Content Include="Node\public\BodyWeightTypeData.js" />
     <Content Include="Node\public\Zoe.js" />
     <Content Include="Node\routes\person.js" />
-    <Content Include="Node\routes\person\body-weight.js" />
+    <Content Include="Node\routes\person\bodyWeight.js" />
     <Content Include="Node\zoe-configuration.js" />
     <Content Include="Node\zoe-node.js" />
     <Content Include="Node\public\Tests\Web\ViewModelTests.html" />

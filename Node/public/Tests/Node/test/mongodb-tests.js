@@ -2,7 +2,11 @@
 
     var mongodb = require('../../../../zoe/mongodb');
     var expect = require('chai').expect;
-    
+
+    var mocks = {};
+
+    mocks.logger = require('./mocks/logger');
+
     var defaultMongoConfiguration = {
         environmentName: 'Development',
         databaseServer: "localhost",
@@ -10,20 +14,12 @@
         databaseName: "ZoeDevelopment",
         nodePort: 1976
     };
-
-    var log;
-
-    var logger = {
-        log: function(message) {
-            log.push(message);
-        }
-    };
-
+    
     var mongo;
 
     beforeEach(function () {
-        log = [];
-        mongo = mongodb(defaultMongoConfiguration, logger);
+        mocks.logger.clear();
+        mongo = mongodb(defaultMongoConfiguration, mocks.logger);
     });
 
     describe('mongodb', function () {
@@ -59,8 +55,8 @@
 
         it('should write to log', function(done) {
             mongo.open(function() {
-                expect(log).to.have.length(1);
-                expect(log[0]).to.equal('localhost:27017/ZoeDevelopment: Open');
+                expect(mocks.logger.size()).to.equal(1);
+                expect(mocks.logger.get(0)).to.equal('localhost:27017/ZoeDevelopment: Open');
                 done();
             });
         });
