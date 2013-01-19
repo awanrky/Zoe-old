@@ -1,1 +1,1 @@
-powershell ./setup.ps1 localhost:27017/ZoeDevelopment development
+powershell ./setup.ps1 localhost:27017/ZoeDevelopment 

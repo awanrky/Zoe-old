@@ -1,0 +1,1 @@
+﻿db.Log.ensureIndex({ date: 1 });

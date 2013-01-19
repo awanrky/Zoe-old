@@ -35,10 +35,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="Data\MongoScripts\Collections\Data.js" />
+    <Content Include="Data\MongoScripts\Collections\Log.js" />
+    <Content Include="Data\MongoScripts\Collections\Meta.js" />
     <Content Include="Data\MongoScripts\InitializeDatabase.js" />
     <Content Include="Data\MongoScripts\People\Lacy.js" />
     <Content Include="Data\MongoScripts\People\Mark.js" />
-    <Content Include="Data\MongoScripts\SetupZoe_old.js" />
+    <Content Include="Data\MongoScripts\Collections\Person.js" />
     <Content Include="Node\configuration.js" />
     <Content Include="Node\node_modules\chai\chai.js" />
     <Content Include="Node\node_modules\chai\index.js" />
@@ -771,7 +774,6 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\MongoScripts\Schema\" />
     <Folder Include="Data\MongoScripts\TestData\" />
     <Folder Include="Node\aisa\node\" />
   </ItemGroup>

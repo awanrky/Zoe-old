@@ -1,0 +1,1 @@
+﻿db.Meta.ensureIndex({ name: 1 });
