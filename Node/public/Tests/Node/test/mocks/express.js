@@ -50,7 +50,17 @@ exports.Request = function(c) {
 };
 
 exports.Response = function () {
-    this.send = function(response) { this.response = response; };
-    this.set = function(header, value) {
+    var headers = [];
+    
+    this.send = function (response) { this.response = response; };
+    
+    this.set = function (header, value) {
+        headers.push({ header: header, value: value });
+    };
+    
+    this.getHeader = function(header, value) {
+        return _.find(headers, function(h) {
+            return (h.header === header) && (h.value === value);
+        });
     };
 };

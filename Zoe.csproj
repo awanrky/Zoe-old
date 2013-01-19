@@ -35,7 +35,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
-    <Content Include="Data\MongoScripts\SetupZoe.js" />
+    <Content Include="Data\MongoScripts\InitializeDatabase.js" />
+    <Content Include="Data\MongoScripts\People\Lacy.js" />
+    <Content Include="Data\MongoScripts\People\Mark.js" />
+    <Content Include="Data\MongoScripts\SetupZoe_old.js" />
     <Content Include="Node\configuration.js" />
     <Content Include="Node\node_modules\chai\chai.js" />
     <Content Include="Node\node_modules\chai\index.js" />
@@ -543,6 +546,8 @@
     <Content Include="Node\zoe\mongodb.js" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Curl\body-weight\insert.ps1" />
+    <None Include="Data\MongoScripts\setup.ps1" />
     <None Include="Data\MongoScripts\SetupZoeDevelopmentDatabase.bat" />
     <None Include="Data\MongoScripts\SetupZoeProductionDatabase.bat" />
     <None Include="Data\MongoScripts\SetupZoeTestDatabase.bat" />
@@ -766,6 +771,8 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Data\MongoScripts\Schema\" />
+    <Folder Include="Data\MongoScripts\TestData\" />
     <Folder Include="Node\aisa\node\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />

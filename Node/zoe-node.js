@@ -21,7 +21,7 @@ app.get('/person/get-meta/:person', person.getMeta);
 
 var settings = {
     app: app,
-    baseRoute: '/person/:id',
+    baseRoute: '/:person',
     configuration: configuration,
     logger: console
 };

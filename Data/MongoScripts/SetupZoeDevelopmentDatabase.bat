@@ -1,1 +1,1 @@
-mongo localhost:27017/ZoeDevelopment --quiet SetupZoe.js
+powershell ./setup.ps1 localhost:27017/ZoeDevelopment development
