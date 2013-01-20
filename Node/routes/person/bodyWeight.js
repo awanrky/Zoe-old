@@ -36,8 +36,12 @@ function insertDate(req, res) {
     };
 
     c.mongo.db.collection('Data', function(err, collection) {
-        collection.insert(record, function(error) {
-            res.send('success');
+        collection.insert(record, function (error) {
+            if (error) {
+                res.send(500, error);
+            } else {
+                res.send(200);
+            }
         });
     });
 }
@@ -49,14 +53,22 @@ function getByDateRange(req, res) {
     var fromDate = new Date(req.params.from);
     var toDate = new Date(req.params.to);
 
-    c.mongo.db.collection('Data', function(err, collection) {
+    c.mongo.db.collection('Data', function (err, collection) {
+        if (err) {
+            res.send(500, err);
+            return;
+        }
         collection.find({
             'person': person,
             'type': dataType,
             'date': { $gt: fromDate, $lt: toDate }
         }, {
             sort: { date: 1 }
-        }).toArray(function(error, items) {
+        }).toArray(function (error, items) {
+            if (error) {
+                res.send(500, error);
+                return;
+            } 
             res.send(items);
         });
     });
@@ -69,7 +81,11 @@ function getByPage(req, res) {
     var page = req.params.page;
     var pageSize = req.params.pageSize;
     
-    c.mongo.db.collection(person, function(err, collection) {
+    c.mongo.db.collection(person, function (err, collection) {
+        if (err) {
+            res.send(500, err);
+            return;
+        }
         collection.find({
             'person': person,
             'type': dataType
@@ -78,6 +94,10 @@ function getByPage(req, res) {
             skip: page * pageSize,
             limit: pageSize
         }).toArray(function (error, items) {
+            if (error) {
+                res.send(500, error);
+                return;
+            }
             res.send(items);
         });
     });

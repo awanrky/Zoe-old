@@ -47,12 +47,22 @@ exports.deleteRoutes.findRoute = function (route) {
 
 exports.Request = function(c) {
     this.params = c.params || {};
+    this.body = c.body || {};
 };
 
 exports.Response = function () {
+    var self = this;
     var headers = [];
     
-    this.send = function (response) { this.response = response; };
+    this.send = function () {
+        if (arguments.length === 2) {
+            self.statusCode = arguments[0];
+            self.response = arguments[1];
+            return;
+        } 
+        self.statusCode = 200;
+        self.response = arguments[0];
+    };
     
     this.set = function (header, value) {
         headers.push({ header: header, value: value });

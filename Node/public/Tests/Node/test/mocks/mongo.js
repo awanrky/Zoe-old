@@ -13,8 +13,8 @@ function Collection (name) {
         return new Result(query, options);
     };
 
-    this.insert = function() {
-
+    this.insert = function(record, callback) {
+        callback();
     };
 }
 
