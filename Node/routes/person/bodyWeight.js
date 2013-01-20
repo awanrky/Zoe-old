@@ -1,8 +1,8 @@
-﻿var _ = require('underscore'),
-    mongo = require('../../zoe/mongodb'),
-    mongodb = require('mongodb');
+﻿var _ = require('underscore');
 
 var c;
+
+var dataType = 'bodyWeight';
 
 exports = module.exports = initialize;
 
@@ -28,13 +28,14 @@ function insertDate(req, res) {
     var data = JSON.parse(req.body.data)[0];
     
     var record = {
-        'type': 'weight',
+        'person': person,
+        'type': dataType,
         'value': data.value,
         'date': new Date(data.date),
         'createdOn': new Date()
     };
 
-    mongo.db.collection(person, function(err, collection) {
+    c.mongo.db.collection('Data', function(err, collection) {
         collection.insert(record, function(error) {
             res.send('success');
         });
@@ -48,28 +49,35 @@ function getByDateRange(req, res) {
     var fromDate = new Date(req.params.from);
     var toDate = new Date(req.params.to);
 
-    console.log(fromDate);
-    console.log(toDate);
-
-    mongo.db.collection(person, function(err, collection) {
+    c.mongo.db.collection('Data', function(err, collection) {
         collection.find({
-            'type': 'bodyWeight',
+            'person': person,
+            'type': dataType,
             'date': { $gt: fromDate, $lt: toDate }
+        }, {
+            sort: { date: 1 }
         }).toArray(function(error, items) {
             res.send(items);
         });
     });
 }
 
-function getByPage(req, res, params) {
+function getByPage(req, res) {
     res.set('Cache-Control', 'no-cache');
     
     var person = req.params.person;
     var page = req.params.page;
     var pageSize = req.params.pageSize;
     
-    mongo.db.collection(person, function(err, collection) {
-        collection.find({ 'type': 'bodyWeight' }).toArray(function(error, items) {
+    c.mongo.db.collection(person, function(err, collection) {
+        collection.find({
+            'person': person,
+            'type': dataType
+        }, {
+            sort: { date: 1 },
+            skip: page * pageSize,
+            limit: pageSize
+        }).toArray(function (error, items) {
             res.send(items);
         });
     });

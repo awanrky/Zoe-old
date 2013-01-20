@@ -6,53 +6,77 @@
 
     var settings = {
         app: require('./mocks/express'),
-        baseRoute: '/person/:id',
+        mongo: require('./mocks/mongo'),
+        baseRoute: '/:person',
         configuration: {},
         logger: require('./mocks/logger')
     };
+    
+    function getRoute(routeName) {
+        var route = settings.app.getRoutes.findRoute(routeName);
+        
+        expect(route, 'could not find route "' + routeName + '"').to.be.an('object');
+        expect(route.route, 'found wrong route').to.equal(routeName);
+        expect(route.action, 'route does not have an action').to.be.a('function');
+
+        return route;
+    }
+
+    function callAction(action, requestParams) {
+        var request = new settings.app.Request(requestParams);
+        var response = new settings.app.Response();
+
+        action(request, response);
+
+        return { request: request, response: response };
+    }
+    
+    function hasNoCacheHeader(response) {
+        var noCacheHeader = response.getHeader('Cache-Control', 'no-cache');
+
+        return (typeof noCacheHeader === 'object') && (noCacheHeader.header === 'Cache-Control') && (noCacheHeader.value === 'no-cache');
+    }
 
     bodyWeight(settings);
 
     describe('routes', function () {
 
-        describe('get routes', function() {
+        describe('get routes', function () {
 
             it('should have 2 get routes', function() {
                 expect(settings.app.getRoutes).to.have.length(2);
             });
+            
+            describe('date range', function() {
 
-            it('should get all weights for a person by date range', function () {
-                var routeName = '/:person/body-weight';
-                var route = settings.app.getRoutes.findRoute(routeName);
+                var route = getRoute('/:person/body-weight/range/:from/:to');
+                var requestParams = { params: { person: 1, from: '2012-01-01', to: '2012-02-01' } };
+                var action = callAction(route.action, requestParams);
 
-                expect(route, 'could not find route "' + routeName + '"').to.be.an('object');
-                expect(route.route, 'found wrong route').to.equal(routeName);
+                it('should get all weights for a person by date range', function() {
+                    expect(action.response.response[0].person).to.equal(requestParams.params.person );
+                });
 
-                expect(route.action, 'route does not have an action').to.be.a('function');
-
-                var request = new settings.app.Request({ params: { id: 1 } });
-                var response = new settings.app.Response();
-                route.action(request, response);
-                expect(response.response).to.equal('test 1');
+                it('should return a no cache header', function() {
+                    expect(hasNoCacheHeader(action.response)).to.equal(true);
+                });
+                
             });
 
-            it('should return a no cache header', function() {
-                var routeName = '/person/:id/body-weight';
-                var route = settings.app.getRoutes.findRoute(routeName);
+            describe('get by page (page size and page number)', function() {
+                var route = getRoute('/:person/body-weight/page/:page/:pageSize');
+                var requestParams = { params: { person: 1, page: 2, pageSize: 10 } };
+                var action = callAction(route.action, requestParams);
 
-                expect(route, 'could not find route "' + routeName + '"').to.be.an('object');
-                expect(route.route, 'found wrong route').to.equal(routeName);
+                it('should get weights 11 - 20 for a person', function () {
+                    expect(action.response.response[0].person, 'querying for wrong person').to.equal(requestParams.params.person);
+                    expect(action.response.response[1].skip, 'getting wrong page').to.equal(requestParams.params.page * requestParams.params.pageSize);
+                    expect(action.response.response[1].limit, 'returning incorrect number of records').to.equal(requestParams.params.pageSize);
+                });
 
-                expect(route.action, 'route does not have an action').to.be.a('function');
-                
-                var request = new settings.app.Request({ params: { id: 1 } });
-                var response = new settings.app.Response();
-                route.action(request, response);
-
-                var returnedHeader = response.getHeader('Cache-Control', 'no-cache');
-                expect(returnedHeader, 'could not find a no cache header').to.be.an('object');
-                expect(returnedHeader.header).to.equal('Cache-Control');
-                expect(returnedHeader.value).to.equal('no-cache');
+                it('should return a no cache header', function () {
+                    expect(hasNoCacheHeader(action.response)).to.equal(true);
+                });
             });
 
         });
@@ -67,8 +91,8 @@
 
         describe('post routes', function() {
 
-            it('should have 0 post routes', function() {
-                expect(settings.app.postRoutes).to.have.length(0);
+            it('should have 1 post route', function() {
+                expect(settings.app.postRoutes).to.have.length(1);
             });
 
         });
