@@ -558,6 +558,7 @@
     <None Include="Data\MongoScripts\SetupZoeProductionDatabase.bat" />
     <None Include="Data\MongoScripts\SetupZoeTestDatabase.bat" />
     <None Include="Data\person-data.json" />
+    <None Include="LICENSE" />
     <None Include="Node\node_modules\.bin\express" />
     <None Include="Node\node_modules\.bin\express.cmd" />
     <None Include="Node\node_modules\chai\.npmignore" />
@@ -766,6 +767,7 @@
     <None Include="Node\node_modules\underscore\README.md" />
     <None Include="Node\package.json" />
     <None Include="Node\start.bat" />
+    <None Include="README.md" />
     <None Include="SetupDevelopmentEnvironment.bat" />
     <None Include="SetupProductionEnvironment.bat" />
     <None Include="SetupTestEnvironment.bat" />
