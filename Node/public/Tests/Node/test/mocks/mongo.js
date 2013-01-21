@@ -16,6 +16,10 @@ function Collection (name) {
     this.insert = function(record, callback) {
         callback();
     };
+
+    this.remove = function(record, options, callback) {
+        callback(undefined, 1);
+    };
 }
 
 exports.db = {

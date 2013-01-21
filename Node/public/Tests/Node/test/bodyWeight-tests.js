@@ -20,6 +20,10 @@
         return validateRoute(settings.app.postRoutes.findRoute(routeName), routeName);
     }
 
+    function getDeleteRoute(routeName) {
+        return validateRoute(settings.app.deleteRoutes.findRoute(routeName), routeName);
+    }
+
     function validateRoute(route, routeName)
     {
         expect(route, 'could not find route "' + routeName + '"').to.be.an('object');
@@ -134,10 +138,33 @@
 
         describe('delete routes', function() {
 
-            it('should have 0 delete routes', function() {
-                expect(settings.app.deleteRoutes).to.have.length(0);
+            it('should have 1 delete route', function() {
+                expect(settings.app.deleteRoutes).to.have.length(1);
             });
 
+            describe('delete weight', function() {
+
+                var route = getDeleteRoute('/:person/body-weight');
+                var requestData = {
+                    params: {
+                        'person': 1
+                    },
+                    body: {
+                        data: JSON.stringify([{
+                            _id: 2
+                        }])
+                    }
+                };
+                var action = callAction(route.action, requestData);
+
+                it('should return a 200 result', function() {
+                    expect(action.response.statusCode).to.equal(200);
+                });
+
+                it('should return a no cache header', function() {
+                    expect(hasNoCacheHeader(action.response)).to.equal(true);
+                });
+            });
         });
 
     });

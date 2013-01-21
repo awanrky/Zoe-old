@@ -3,6 +3,7 @@
 var c;
 
 var dataType = 'bodyWeight';
+var collectionName = 'Data';
 
 exports = module.exports = initialize;
 
@@ -18,7 +19,39 @@ function setUpRoutes() {
 
     c.app.post(c.baseRoute + '/body-weight', insertDate);
 
+    c.app.delete(c.baseRoute + '/body-weight', deleteDate);
+
 //    c.app.get(/^\/person\/(\w+)\/body-weight(?:\/(\w+))(?:\/(\w+))?$/, getByPersonId);
+}
+
+function deleteDate(req, res) {
+    res.set('Cache-Control', 'no-cache');
+
+    var person = req.params.person;
+    var data = JSON.parse(req.body.data)[0];
+
+    var record = {
+        'person': person,
+        '_id': data._id
+    };
+
+    c.mongo.db.collection(collectionName, function(err, collection) {
+        if (err) {
+            res.send(500, err);
+            return;
+        }
+        collection.remove(record, {}, function(error, numberOfRemovedDocuments) {
+            if (error) {
+                res.send(500, error);
+                return;
+            }
+            if (numberOfRemovedDocuments != 1) {
+                res.send(500, numberOfRemovedDocuments + ' removed.  should have removed 1.');
+            }
+            res.send(200);
+        });
+
+    });
 }
 
 function insertDate(req, res) {
@@ -35,13 +68,17 @@ function insertDate(req, res) {
         'createdOn': new Date()
     };
 
-    c.mongo.db.collection('Data', function(err, collection) {
+    c.mongo.db.collection(collectionName, function (err, collection) {
+        if (err) {
+            res.send(500, err);
+            return;
+        }
         collection.insert(record, function (error) {
             if (error) {
                 res.send(500, error);
-            } else {
-                res.send(200);
+                return;
             }
+            res.send(200);
         });
     });
 }
@@ -53,7 +90,7 @@ function getByDateRange(req, res) {
     var fromDate = new Date(req.params.from);
     var toDate = new Date(req.params.to);
 
-    c.mongo.db.collection('Data', function (err, collection) {
+    c.mongo.db.collection(collectionName, function (err, collection) {
         if (err) {
             res.send(500, err);
             return;
@@ -81,7 +118,7 @@ function getByPage(req, res) {
     var page = req.params.page;
     var pageSize = req.params.pageSize;
     
-    c.mongo.db.collection(person, function (err, collection) {
+    c.mongo.db.collection(collectionName, function (err, collection) {
         if (err) {
             res.send(500, err);
             return;
