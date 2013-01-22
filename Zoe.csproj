@@ -771,6 +771,8 @@
     <None Include="SetupDevelopmentEnvironment.bat" />
     <None Include="SetupProductionEnvironment.bat" />
     <None Include="SetupTestEnvironment.bat" />
+    <None Include="startDevelopmentEnvironment.lnk" />
+    <None Include="startDevelopmentEnvironment.ps1" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Node\public\BodyWeightChart.js" />
