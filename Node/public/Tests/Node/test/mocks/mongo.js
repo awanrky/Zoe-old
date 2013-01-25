@@ -1,4 +1,5 @@
-﻿var _ = require('underscore');
+﻿var _ = require('underscore'),
+    mongo = require('mongodb');
 
 function Result(query, options) {
     this.toArray = function(callback) {
@@ -10,6 +11,10 @@ function Collection (name) {
     this.name = name;
 
     this.find = function(query, options) {
+        return new Result(query, options);
+    };
+
+    this.findOne = function (query, options) {
         return new Result(query, options);
     };
 
@@ -27,3 +32,5 @@ exports.db = {
         callback(undefined, new Collection(collectionName));
     }  
 };
+
+exports.BSONPure = mongo.BSONPure;

@@ -13,6 +13,8 @@ var defaultLogger = {
     log: function() {}
 };
 
+exports.m = mongo;
+
 exports.isOpen = function() {
     return exports.db && exports.db.state === 'connected';
 };

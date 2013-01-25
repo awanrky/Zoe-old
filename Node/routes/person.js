@@ -1,133 +1,43 @@
-// modified code from http://coenraets.org/blog/2012/10/creating-a-rest-api-using-node-js-express-and-mongodb/
+var _ = require('underscore');
 
-var	configuration = require('../zoe-configuration'),
-	_ = require('underscore'),
-    mongo = require('../zoe/mongodb');
+var c;
+var BSON;
 
-var db = mongo(configuration, console).db;
+exports = module.exports = initialize;
 
-exports.getById = function(req, res) {
+function initialize(config) {
+    c = config;
+    BSON = c.mongo.BSONPure;
+
+    setUpRoutes();
+};
+
+function setUpRoutes() {
+    c.app.get('/person/byid/:id', getById);
+}
+
+function sendError(res, error) {
+    if (error) {
+        res.type('json');
+        res.json(500, {error: error});
+        return true;
+    }
+    return false;
+}
+
+function getById(req, res) {
     res.set('Cache-Control', 'no-cache');
-    var person = req.params.person;
     var id = req.params.id;
-    console.log('Retreiving: ' + id);
-    db.collection(person, function(err, collection) {
-        collection.findOne({ '_id': new BSON.ObjectID(id) }, function(err, item) {
+    if (!(id.length === 24 || id.length === 12)) {
+        sendError(res, "Invalid id: " + id);
+        return;
+    }
+    c.logger.log('Retreiving: ' + id);
+    c.mongo.db.collection('Person', function (err, collection) {
+        if (sendError(res, err)) { return; }
+        collection.findOne({ '_id': new BSON.ObjectID(id) }, function (error, item) {
+            if (sendError(res, error)) { return; }
             res.send(item);
-        });
-    });
-};
-
-exports.getAll = function(req, res) {
-    res.set('Cache-Control', 'no-cache');
-    var person = req.params.person;
-    db.collection(person, function(err, collection) {
-        collection.find().toArray(function(err, items) {
-            res.send(items);
-        });
-    });
-};
-
-exports.getMeta = function (req, res) {
-    res.set('Cache-Control', 'no-cache');
-    var person = req.params.person;
-    db.collection(person, function (err, collection) {
-        collection.find({'collectionMeta': 'collectionMeta'}).toArray(function (err, items) {
-            res.send(items);
-        });
-    });
-};
-
-exports.getTypeData = function(req, res) {
-    res.set('Cache-Control', 'no-cache');
-    var person = req.params.person;
-    var type = req.params.type;
-    var orderBy = {};
-    orderBy[req.params.orderBy || '_id'] = Number(req.params.order) || 1;
-    db.collection(person, function(err, collection) {
-        collection.find({ 'type': type }).sort(orderBy).toArray(function(error, items) {
-            res.send(items);
-        });
-    });
-};
-
-exports.getDistinctTypes = function(req, res) {
-    res.set('Cache-Control', 'no-cache');
-    var person = req.params.person;
-    db.collection(person, function(err, collection) {
-        collection.distinct('type', { 'type': { $exists: true, $ne: 'meta' } }, function(err, items) {
-            var types = [];
-            // console.log("getDistinctTypes(), typeof items: " + typeof items);
-            // console.log("getDistinctTypes(), items: " + items);
-            // console.log("getDistinctTypes(), getting " + items.length + " items");
-            var sendResult = _.after(items.length, function(t) {
-                // console.log("getDistinctTypes(), sending...");
-                res.send(t);
-            });
-            _.map(items, function(element, index, list) {
-                collection.findOne({ 'typeMeta': items[index] }, function(err, item) {
-                    if (err) {
-                        types.push({ type: items[index], typeMeta: 'undefined', prettyName: items[index]  });
-                    } else if (item) {
-                        types.push( item );
-                    } else {
-                        types.push({ type: items[index], typeMeta: 'undefined', prettyName: items[index]  });
-                    }
-                    // console.log("getDistinctTypes(), item: " + items[index]);
-                    sendResult(types);
-                });
-            });
-            //res.send(items);
-        });
-    });
-};
-
-exports.add = function(req, res) {
-    var person = req.params.person;
-    db.collection(person, function(err, collection) {
-        collection.insert(req.body, { safe: true }, function(error, result) {
-            if (err) {
-                res.send({ 'error': 'Error: ' });
-            } else {
-                console.log('Added: ' + JSON.stringify(result[0]));
-                res.send(result[0]);
-            }
-        });
-    });
-};
-
-exports.update = function(req, res) {
-    var person = req.params.person;
-    var id = req.params.id;
-    var data = req.body;
-
-    console.log("Updating: " + id);
-
-    db.collection(person, function(err, collection) {
-        collection.update({ '_id': new BSON.ObjectID(id) }, data, { safe: true }, function(err, result) {
-            if (err) {
-                console.log('Error updating ' + id + ': ' + err);
-                res.send({ 'error': 'Error updating ' + id });
-            } else {
-                console.log('' + result + ' document(s) updated.');
-                res.send(data);
-            }
-        });
-    });
-};
-
-exports.delete = function(req, res) {
-    var person = req.params.person;
-    var id = req.params.id;
-    console.log('Deleting: ' + id + ' from: ' + person);
-    db.collection(person, function(err, collection) {
-        collection.remove({ '_id': new BSON.ObjectID(id) }, { safe: true }, function(err, result) {
-            if (err) {
-                res.send({ 'error': 'Error: ' + err });
-            } else {
-                console.log('' + result + ' document(s) deleted.');
-                res.send(req.body);
-            }
         });
     });
 };
