@@ -28,7 +28,7 @@
                 var action = validate.callAction(route.action, requestData);
 
                 it('should retreive the person record from the Person collection', function () {
-                    expect(action.response).to.equal(requestData.params.id);
+                    expect(action.response.response[0]._id.toString()).to.equal(new settings.mongo.BSONPure.ObjectID(requestData.params.id).toString());
                 });
 
                 it('should return a no cache header', function () {
@@ -37,7 +37,19 @@
             });
             
             describe('get by name', function () {
+                var route = validate.getGetRoute('/person/byname/:first/:middle/:last');
+                var requestData = { params: { first: 'Mark', middle: 'Gilbert', last: 'Ott' } };
+                var action = validate.callAction(route.action, requestData);
 
+                it('should retreive the person record from the Person collection', function () {
+                    expect(action.response.response[0].name.first).to.equal(requestData.params.first);
+                    expect(action.response.response[0].name.middle).to.equal(requestData.params.middle);
+                    expect(action.response.response[0].name.last).to.equal(requestData.params.last);
+                });
+
+                it('should return a no cache header', function () {
+                    expect(validate.hasNoCacheHeader(action.response)).to.equal(true);
+                });
             });
 
         });

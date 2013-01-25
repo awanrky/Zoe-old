@@ -14,6 +14,7 @@ function initialize(config) {
 
 function setUpRoutes() {
     c.app.get('/person/byid/:id', getById);
+    c.app.get('/person/byname/:first/:middle/:last', getByName)
 }
 
 function sendError(res, error) {
@@ -32,12 +33,25 @@ function getById(req, res) {
         sendError(res, "Invalid id: " + id);
         return;
     }
-    c.logger.log('Retreiving: ' + id);
+    
     c.mongo.db.collection('Person', function (err, collection) {
         if (sendError(res, err)) { return; }
-        collection.findOne({ '_id': new BSON.ObjectID(id) }, function (error, item) {
-            if (sendError(res, error)) { return; }
-            res.send(item);
+        collection.findOne({ '_id': new BSON.ObjectID(id) }).toArray(function (error, items) {
+            res.send(items);
+        });
+    });
+};
+
+function getByName(req, res) {
+    res.set('Cache-Control', 'no-cache');
+    var firstName = req.params.first;
+    var middleName = req.params.middle;
+    var lastName = req.params.last;
+    
+    c.mongo.db.collection('Person', function (err, collection) {
+        if (sendError(res, err)) { return; }
+        collection.findOne({ name: { first: firstName, middle: middleName, last: lastName } }).toArray(function (error, items) {
+            res.send(items);
         });
     });
 };

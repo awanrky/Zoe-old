@@ -2,6 +2,7 @@
 
     var expect = require('chai').expect,
         bodyWeight = require('../../../../routes/person/bodyWeight'),
+        validate = require('./routes/route-validations'),
         _ = require('underscore');
 
     var settings = {
@@ -12,42 +13,7 @@
         logger: require('./mocks/logger')
     };
 
-    function getGetRoute(routeName) {
-        return validateRoute(settings.app.getRoutes.findRoute(routeName), routeName);
-    }
-    
-    function getPostRoute(routeName) {
-        return validateRoute(settings.app.postRoutes.findRoute(routeName), routeName);
-    }
-
-    function getDeleteRoute(routeName) {
-        return validateRoute(settings.app.deleteRoutes.findRoute(routeName), routeName);
-    }
-
-    function validateRoute(route, routeName)
-    {
-        expect(route, 'could not find route "' + routeName + '"').to.be.an('object');
-        expect(route.route, 'found wrong route').to.equal(routeName);
-        expect(route.action, 'route does not have an action').to.be.a('function');
-
-        return route;
-    }
-
-    function callAction(action, requestParams) {
-        var request = new settings.app.Request(requestParams);
-        var response = new settings.app.Response();
-
-        action(request, response);
-
-        return { request: request, response: response };
-    }
-    
-    function hasNoCacheHeader(response) {
-        var noCacheHeader = response.getHeader('Cache-Control', 'no-cache');
-
-        return (typeof noCacheHeader === 'object') && (noCacheHeader.header === 'Cache-Control') && (noCacheHeader.value === 'no-cache');
-    }
-
+    validate(settings);
     bodyWeight(settings);
 
     describe('routes', function () {
@@ -60,24 +26,24 @@
             
             describe('date range', function() {
 
-                var route = getGetRoute('/:person/body-weight/range/:from/:to');
+                var route = validate.getGetRoute('/:person/body-weight/range/:from/:to');
                 var requestData = { params: { person: 1, from: '2012-01-01', to: '2012-02-01' } };
-                var action = callAction(route.action, requestData);
+                var action = validate.callAction(route.action, requestData);
 
                 it('should get all weights for a person by date range', function() {
                     expect(action.response.response[0].person).to.equal(requestData.params.person );
                 });
 
                 it('should return a no cache header', function() {
-                    expect(hasNoCacheHeader(action.response)).to.equal(true);
+                    expect(validate.hasNoCacheHeader(action.response)).to.equal(true);
                 });
                 
             });
 
             describe('get by page (page size and page number)', function() {
-                var route = getGetRoute('/:person/body-weight/page/:page/:pageSize');
+                var route = validate.getGetRoute('/:person/body-weight/page/:page/:pageSize');
                 var requestData = { params: { person: 1, page: 2, pageSize: 10 } };
-                var action = callAction(route.action, requestData);
+                var action = validate.callAction(route.action, requestData);
 
                 it('should get weights 11 - 20 for a person', function () {
                     expect(action.response.response[0].person, 'querying for wrong person').to.equal(requestData.params.person);
@@ -86,7 +52,7 @@
                 });
 
                 it('should return a no cache header', function () {
-                    expect(hasNoCacheHeader(action.response)).to.equal(true);
+                    expect(validate.hasNoCacheHeader(action.response)).to.equal(true);
                 });
             });
 
@@ -110,7 +76,7 @@
                 var value = 235.54;
                 var date = new Date(2011, 1, 1);
 
-                var route = getPostRoute('/:person/body-weight');
+                var route = validate.getPostRoute('/:person/body-weight');
                 var requestData = {
                     params: {
                         'person': 1
@@ -122,14 +88,14 @@
                         }])
                     }
                 };
-                var action = callAction(route.action, requestData);
+                var action = validate.callAction(route.action, requestData);
 
                 it('should return a 200 result', function() {
                     expect(action.response.statusCode).to.equal(200);
                 });
                 
                 it('should return a no cache header', function () {
-                    expect(hasNoCacheHeader(action.response)).to.equal(true);
+                    expect(validate.hasNoCacheHeader(action.response)).to.equal(true);
                 });
 
             });
@@ -144,7 +110,7 @@
 
             describe('delete weight', function() {
 
-                var route = getDeleteRoute('/:person/body-weight');
+                var route = validate.getDeleteRoute('/:person/body-weight');
                 var requestData = {
                     params: {
                         'person': 1
@@ -155,14 +121,14 @@
                         }])
                     }
                 };
-                var action = callAction(route.action, requestData);
+                var action = validate.callAction(route.action, requestData);
 
                 it('should return a 200 result', function() {
                     expect(action.response.statusCode).to.equal(200);
                 });
 
                 it('should return a no cache header', function() {
-                    expect(hasNoCacheHeader(action.response)).to.equal(true);
+                    expect(validate.hasNoCacheHeader(action.response)).to.equal(true);
                 });
             });
         });
