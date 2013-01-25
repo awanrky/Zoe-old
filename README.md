@@ -17,7 +17,7 @@ Run unit tests
 
 - Server
 	- change to Zoe/Node/public/Tests/Node directory at the command prompt
-	- run 'mocha' command
+	- run 'mocha --recursive' command
 
 - Client
 	- run server (see Start Server section below)
