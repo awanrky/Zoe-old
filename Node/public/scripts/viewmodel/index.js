@@ -12,11 +12,35 @@
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
     IN THE SOFTWARE. */
 
-define(["jquery", "viewmodel/bodyweight"], function ($, bodyweight) {
+define(["jquery", "../../lib/knockout", "viewmodel/bodyweight"], function ($, ko, bodyweight) {
     "use strict";
 
-
     return function() {
+        var that = this;
+        
+        function parseName(name) {
+            var a = name.split(' ');
 
+            var returnValue = {
+                first: a[0],
+                last: a[a.length - 1]
+            };
+            a.pop();
+            a.shift();
+            returnValue.middle = a.join(' ');
+            return returnValue;
+        }
+
+        function getPerson(name, callback) {
+            var person = parseName(name);
+            $.getJSON("/person/byname/:first/:middle/:last" + name, function (data) {
+                log(data);
+                callback(data[0]);
+            });
+        }
+
+        this.title = "This is a title";
     };
+
+
 });

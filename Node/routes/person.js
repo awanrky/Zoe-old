@@ -14,7 +14,7 @@ function initialize(config) {
 
 function setUpRoutes() {
     c.app.get('/person/byid/:id', getById);
-    c.app.get('/person/byname/:first/:middle/:last', getByName)
+    c.app.get('/person/byname/:first/:middle/:last', getByName);
 }
 
 function sendError(res, error) {

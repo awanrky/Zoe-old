@@ -505,7 +505,16 @@
     <Content Include="Node\node_modules\underscore\underscore.js" />
     <Content Include="Node\public\index.css" />
     <Content Include="Node\public\index.html" />
+    <Content Include="Node\public\lib\bootstrap\bootstrap.2.1.1\css\bootstrap-responsive.css" />
+    <Content Include="Node\public\lib\bootstrap\bootstrap.2.1.1\css\bootstrap-responsive.min.css" />
+    <Content Include="Node\public\lib\bootstrap\bootstrap.2.1.1\css\bootstrap.css" />
+    <Content Include="Node\public\lib\bootstrap\bootstrap.2.1.1\css\bootstrap.min.css" />
+    <Content Include="Node\public\lib\bootstrap\bootstrap.2.1.1\img\glyphicons-halflings-white.png" />
+    <Content Include="Node\public\lib\bootstrap\bootstrap.2.1.1\img\glyphicons-halflings.png" />
+    <Content Include="Node\public\lib\bootstrap\bootstrap.2.1.1\js\bootstrap.js" />
+    <Content Include="Node\public\lib\bootstrap\bootstrap.2.1.1\js\bootstrap.min.js" />
     <Content Include="Node\public\lib\knockout.js" />
+    <Content Include="Node\public\lib\underscore\underscore.1.4.2\underscore-min.js" />
     <Content Include="Node\public\old\BodyWeightType.js" />
     <Content Include="Node\public\old\GasolinePurchaseTypeData.js" />
     <Content Include="Node\public\old\index.css" />
@@ -543,6 +552,7 @@
     <Content Include="Node\public\Tests\Node\test\mocks\logger.js" />
     <Content Include="Node\public\Tests\Node\test\mocks\mongo.js" />
     <Content Include="Node\public\Tests\Node\test\mongodb-tests.js" />
+    <Content Include="Node\public\Tests\Web\public\scripts\viewmodel\index-tests.js" />
     <Content Include="Node\public\Tests\Node\test\routes\person-tests.js" />
     <Content Include="Node\public\Tests\Node\test\routes\route-validations.js" />
     <Content Include="Node\public\Tests\Web\PersonMock.js" />

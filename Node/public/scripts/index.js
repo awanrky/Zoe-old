@@ -12,6 +12,21 @@
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
     IN THE SOFTWARE. */
 
-require(["jquery", "viewmodel/index"], function($) {
-    $('navbar').hide();
+requirejs.config({
+    baseurl: '.',
+    paths: {
+        'jquery': 'require-jquery',
+        'bootstrap': '../lib/bootstrap/bootstrap.2.1.1/js/bootstrap'
+    },
+    shim: {
+        'bootstrap': ['jquery']
+    }
+});
+
+require(["jquery", "viewmodel/index", '../../lib/knockout', 'bootstrap'], function($, IndexViewModel, ko, bs) {
+    //    $('navbar').hide();
+    
+    
+
+    ko.applyBindings(new IndexViewModel());
 });

@@ -1,7 +1,8 @@
 var express = require('express'),
 	configuration = require('./zoe-configuration'),
 	person = require('./routes/person'),
-    bodyWeight = require('./routes/person/bodyWeight.js')
+    bodyWeight = require('./routes/person/bodyWeight.js'),
+    mongo = require('mongodb')
     ;
 
 var app = express();
@@ -25,7 +26,8 @@ var settings = {
     app: app,
     baseRoute: '/:person',
     configuration: configuration,
-    logger: console
+    logger: console,
+    mongo: mongo
 };
 
 person(settings);
