@@ -12,10 +12,10 @@
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
     IN THE SOFTWARE. */
 
-define(["jquery", "../../lib/knockout", "viewmodel/bodyweight"], function ($, ko, bodyweight) {
+define([], function () {
     "use strict";
 
-    return function() {
+    return function($) {
         var that = this;
         
         function parseName(name) {
@@ -31,13 +31,11 @@ define(["jquery", "../../lib/knockout", "viewmodel/bodyweight"], function ($, ko
             return returnValue;
         }
 
-        function getPerson(name, callback) {
+        this.getPerson = function(name, callback) {
             var person = parseName(name);
-            $.getJSON("/person/byname/:first/:middle/:last" + name, function (data) {
-                log(data);
-                callback(data[0]);
-            });
-        }
+            var route = "/person/byname/:first/:middle/:last".replace(":first", person.first).replace(":middle", person.middle).replace(":last", person.last);
+            $.getJSON(route, callback);
+        };
 
         this.title = "This is a title";
     };

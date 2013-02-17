@@ -28,5 +28,5 @@ require(["jquery", "viewmodel/index", '../../lib/knockout', 'bootstrap'], functi
     
     
 
-    ko.applyBindings(new IndexViewModel());
+    ko.applyBindings(new IndexViewModel($));
 });
