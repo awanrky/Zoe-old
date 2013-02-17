@@ -24,9 +24,5 @@ requirejs.config({
 });
 
 require(["jquery", "viewmodel/index", '../../lib/knockout', 'bootstrap'], function($, IndexViewModel, ko, bs) {
-    //    $('navbar').hide();
-    
-    
-
     ko.applyBindings(new IndexViewModel($));
 });

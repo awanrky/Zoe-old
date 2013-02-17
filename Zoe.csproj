@@ -556,13 +556,13 @@
     <Content Include="Node\public\scripts\test\web\viewmodel\index-tests.js" />
     <Content Include="Node\public\scripts\test\node\test\routes\person-tests.js" />
     <Content Include="Node\public\scripts\test\node\test\routes\route-validations.js" />
-    <Content Include="Node\public\scripts\test\web\PersonMock.js" />
+    <Content Include="Node\public\scripts\test\web\mocks\person-mock.js" />
     <Content Include="Node\public\old\Type.js" />
     <Content Include="Node\public\old\TypeData.js" />
     <Content Include="Node\public\old\TypeMeta.js" />
     <Content Include="Node\public\old\BodyWeightTypeData.js" />
     <Content Include="Node\public\old\Zoe.js" />
-    <Content Include="Node\public\scripts\test\web\tests-index.js" />
+    <Content Include="Node\public\scripts\test\web\tests-configuration.js" />
     <Content Include="Node\routes\person.js" />
     <Content Include="Node\routes\person\bodyWeight.js" />
     <Content Include="Node\zoe-configuration.js" />
