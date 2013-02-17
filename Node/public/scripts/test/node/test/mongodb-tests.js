@@ -1,11 +1,11 @@
 ﻿describe('zoe/mongodb', function () {
 
-    var mongodb = require('../../../../zoe/mongodb');
+    var mongodb = require('../../../../../zoe/mongodb');
     var expect = require('chai').expect;
 
     var mocks = {};
 
-    mocks.logger = require('./mocks/logger');
+    mocks.logger = require('../mocks/logger');
 
     var defaultMongoConfiguration = {
         environmentName: 'Development',

@@ -2,13 +2,13 @@
     var expect = require('chai').expect,
         _ = require('underscore'),
         validate = require('./route-validations'),
-        person = require('../../../../../routes/person.js');
+        person = require('../../../../../../routes/person.js');
 
     var settings = {
-        app: require('../mocks/express'),
-        mongo: require('../mocks/mongo'),
+        app: require('../../mocks/express'),
+        mongo: require('../../mocks/mongo'),
         configuration: {},
-        logger: require('../mocks/logger')
+        logger: require('../../mocks/logger')
     };
 
     validate(settings);

@@ -1,16 +1,16 @@
 ﻿describe('zoe/routes/person/bodyWeight', function () {
 
     var expect = require('chai').expect,
-        bodyWeight = require('../../../../routes/person/bodyWeight'),
+        bodyWeight = require('../../../../../routes/person/bodyWeight'),
         validate = require('./routes/route-validations'),
         _ = require('underscore');
 
     var settings = {
-        app: require('./mocks/express'),
-        mongo: require('./mocks/mongo'),
+        app: require('../mocks/express'),
+        mongo: require('../mocks/mongo'),
         baseRoute: '/:person',
         configuration: {},
-        logger: require('./mocks/logger')
+        logger: require('../mocks/logger')
     };
 
     validate(settings);
