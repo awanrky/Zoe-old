@@ -12,12 +12,14 @@
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
     IN THE SOFTWARE. */
 
-define([], function () {
+define(['knockout'], function (ko) {
     "use strict";
 
-    return function($) {
+    return function ($) {
         var that = this;
-        
+
+        var uninitializedValue = 'this is not the value you are looking for';
+
         function parseName(name) {
             var a = name.split(' ');
 
@@ -31,14 +33,45 @@ define([], function () {
             return returnValue;
         }
 
+        this.parseData = function(data) {
+            that.person(data[0]);
+            that.name().first(that.person().name.first);
+            that.name().middle(that.person().name.middle);
+            that.name().last(that.person().name.last);
+            that.id(that.person()._id);
+            that.birthday(new Date(that.person().birthday));
+            that.createdOn(new Date(that.person().createdOn));
+            that.source(that.person().source);
+        };
+
         this.getPerson = function(name, callback) {
             var person = parseName(name);
             var route = "/person/byname/:first/:middle/:last".replace(":first", person.first).replace(":middle", person.middle).replace(":last", person.last);
-            $.getJSON(route, callback);
+            $.getJSON(route, function(data) {
+                if (callback) {
+                    callback(data);
+                } else {
+                    that.parseData(data);
+                }
+            });
         };
 
-        this.title = "This is a title";
+        this.person = ko.observable(uninitializedValue);
+
+        this.name = ko.observable({
+            first: ko.observable(uninitializedValue),
+            middle: ko.observable(uninitializedValue),
+            last: ko.observable(uninitializedValue)
+        });
+
+        this.fullName = ko.computed(function() {
+            return that.name().first() + " " + that.name().middle() + " " + that.name().last();
+        }, that);
+
+        this.id = ko.observable(uninitializedValue);
+        this.birthday = ko.observable(uninitializedValue);
+        this.createdOn = ko.observable(uninitializedValue);
+        this.source = ko.observable(uninitializedValue);
+
     };
-
-
 });

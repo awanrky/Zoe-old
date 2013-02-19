@@ -2,14 +2,16 @@
     baseurl: '/',
     paths: {
         'jquery': 'mocks/jquery-mock',
-        'indexviewmodel': '../../viewmodel/index'
+        'knockout': '../../lib/knockout',
+        'index-viewmodel': '../../index-viewmodel',
+        'person-viewmodel': '../../person-viewmodel'
     },
     shim: {
 //        'bootstrap': ['jquery']
     }
 });
 
-requirejs(['viewmodel/index-tests'], function () {
+requirejs(['index-viewmodel-tests', 'person-viewmodel-tests'], function () {
 
     mocha.run();
 

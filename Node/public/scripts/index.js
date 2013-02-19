@@ -16,13 +16,16 @@ requirejs.config({
     baseurl: '.',
     paths: {
         'jquery': 'require-jquery',
-        'bootstrap': '../lib/bootstrap/bootstrap.2.1.1/js/bootstrap'
+        'bootstrap': '../scripts/lib/bootstrap/bootstrap.2.1.1/js/bootstrap',
+        'knockout': '../scripts/lib/knockout'
     },
     shim: {
         'bootstrap': ['jquery']
     }
 });
 
-require(["jquery", "viewmodel/index", '../../lib/knockout', 'bootstrap'], function($, IndexViewModel, ko, bs) {
-    ko.applyBindings(new IndexViewModel($));
+require(['jquery', 'knockout', 'bootstrap', 'index-viewmodel'], function ($, ko, bs, IndexViewModel) {
+    var indexViewModel = new IndexViewModel($);
+    ko.applyBindings(indexViewModel);
+    indexViewModel.person.getPerson('Mark Gilbert Ott');
 });

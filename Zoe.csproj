@@ -542,9 +542,10 @@
     <Content Include="Node\public\old\Person.js" />
     <Content Include="Node\public\scripts\lib\require-jquery.js" />
     <Content Include="Node\public\scripts\index.js" />
+    <Content Include="Node\public\scripts\test\web\person-viewmodel-tests.js" />
     <Content Include="Node\public\scripts\viewmodel\bodyweight.js" />
-    <Content Include="Node\public\scripts\viewmodel\index.js" />
-    <Content Include="Node\public\scripts\viewmodel\person.js" />
+    <Content Include="Node\public\scripts\index-viewmodel.js" />
+    <Content Include="Node\public\scripts\person-viewmodel.js" />
     <Content Include="Node\public\scripts\lib\chai.js" />
     <Content Include="Node\public\scripts\test\node\test\body-weight-tests.js" />
     <Content Include="Node\public\scripts\test\node\mocks\express.js" />
@@ -553,7 +554,7 @@
     <Content Include="Node\public\scripts\test\node\test\mongodb-tests.js" />
     <Content Include="Node\public\scripts\test\web\mocks\jquery-mock.js" />
     <Content Include="Node\public\scripts\lib\require.js" />
-    <Content Include="Node\public\scripts\test\web\viewmodel\index-tests.js" />
+    <Content Include="Node\public\scripts\test\web\index-viewmodel-tests.js" />
     <Content Include="Node\public\scripts\test\node\test\routes\person-tests.js" />
     <Content Include="Node\public\scripts\test\node\test\routes\route-validations.js" />
     <Content Include="Node\public\scripts\test\web\mocks\person-mock.js" />

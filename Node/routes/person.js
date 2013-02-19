@@ -36,7 +36,7 @@ function getById(req, res) {
     
     c.mongo.db.collection('Person', function (err, collection) {
         if (sendError(res, err)) { return; }
-        collection.findOne({ '_id': new BSON.ObjectID(id) }).toArray(function (error, items) {
+        collection.find({ '_id': new BSON.ObjectID(id) }).toArray(function (error, items) {
             res.send(items);
         });
     });
@@ -50,7 +50,7 @@ function getByName(req, res) {
     
     c.mongo.db.collection('Person', function (err, collection) {
         if (sendError(res, err)) { return; }
-        collection.findOne({ name: { first: firstName, middle: middleName, last: lastName } }).toArray(function (error, items) {
+        collection.find({ name: { first: firstName, middle: middleName, last: lastName } }).toArray(function (error, items) {
             res.send(items);
         });
     });

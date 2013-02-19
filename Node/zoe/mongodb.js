@@ -3,8 +3,8 @@
 exports = module.exports = initialize;
 
 var Server = mongo.Server,
-	Db = mongo.Db,
-	BSON = mongo.BSONPure;
+    Db = mongo.Db,
+    BSON = mongo.BSONPure;
 
 var server;
 var config;
@@ -19,7 +19,6 @@ exports.isOpen = function() {
     return exports.db && exports.db.state === 'connected';
 };
 exports.db = undefined;
-exports.callback = function() {};
 
 function getDatabaseInformationString() {
     return config.databaseServer +
@@ -36,24 +35,16 @@ function initialize(configuration, consoleOrLogger) {
     logger = consoleOrLogger || defaultLogger;
     
     server = new Server(
-	    config.databaseServer,
-	    config.databasePort,
-	    { auto_reconnect: true }
+        config.databaseServer,
+        config.databasePort,
+        { auto_reconnect: true }
     );
     exports.db = new Db(config.databaseName, server, { safe: true });
+
+    exports.db.open(function(err, db) {
+        logger.log(getDatabaseInformationString());
+    });
+    
     return exports;
 }
 
-exports.open = function(callback) {
-    exports.db.open(function (err, db) {
-        if (!err) {
-            logger.log(getDatabaseInformationString());
-        } else {
-            logger.log(getDatabaseInformationString());
-        }
-        if (typeof callback != 'undefined') {
-            callback(exports.isOpen);
-        }
-        exports.callback(exports.isOpen);
-    });
-};
