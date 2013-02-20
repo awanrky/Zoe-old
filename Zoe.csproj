@@ -503,6 +503,7 @@
     <Content Include="Node\node_modules\underscore\index.js" />
     <Content Include="Node\node_modules\underscore\underscore-min.js" />
     <Content Include="Node\node_modules\underscore\underscore.js" />
+    <Content Include="Node\public\favicon.ico" />
     <Content Include="Node\public\index.css" />
     <Content Include="Node\public\index.html" />
     <Content Include="Node\public\scripts\lib\bootstrap\bootstrap.2.1.1\css\bootstrap-responsive.css" />
