@@ -7,21 +7,22 @@ Install and set up environment
 - Install [Node.js] [2]
 - Install [mongodb] [3]
 - clone repository at https://github.com/awanrky/Zoe
+- from the Node directory, run the command 'npm install'
+- run the command 'npm install -g mocha'
 - copy Zoe/configuration.js to Zoe/zoe-configuration.js
 - Edit zoe-configuration.js to point to the running instance of mongo
 - run SetupDevelopmentEnvironment.bat
 
 Run unit tests
 --------------
-(if you need to install mocha, run the command 'npm install -g mocha' at the command prompt)
 
 - Server
-	- change to Zoe/Node/public/Tests/Node directory at the command prompt
+	- change to Zoe/Node/public/scripts/test/node directory at the command prompt
 	- run 'mocha --recursive' command
 
 - Client
 	- run server (see Start Server section below)
-	- navigate to http://<servername>:<serverport>/Tests/Web/ViewModelTests.html
+	- navigate to http://<servername>:<serverport>/scripts/test/web/all-tests.html
 
 Start Server
 ------------
