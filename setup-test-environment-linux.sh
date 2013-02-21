@@ -13,7 +13,7 @@ cd "$PROJECT_DIRECTORY/Node"
 cp ./test-configuration.js ./zoe-configuration.js
 
 # set up mongo test database
-cd "$PROJECT_DIRECTORY/Data/MongoScripts"
+cd "$PROJECT_DIRECTORY/Data/mongo-scripts"
 mongo localhost:27017/ZoeTest setup-database.js
 mongo localhost:27017/ZoeTest setup-testdata.js
 

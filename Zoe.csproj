@@ -35,17 +35,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
-    <Content Include="Data\MongoScripts\Collections\data.js" />
-    <Content Include="Data\MongoScripts\Collections\log.js" />
-    <Content Include="Data\MongoScripts\Collections\meta.js" />
-    <Content Include="Data\MongoScripts\initialize-database.js" />
-    <Content Include="Data\MongoScripts\People\lacy.js" />
-    <Content Include="Data\MongoScripts\People\mark.js" />
-    <Content Include="Data\MongoScripts\Collections\person.js" />
-    <Content Include="Data\MongoScripts\setup-database.js" />
-    <Content Include="Data\MongoScripts\setup-testdata.js" />
-    <Content Include="Data\MongoScripts\TestData\body-weight.js" />
-    <Content Include="Data\MongoScripts\TestData\gasoline-purchase.js" />
+    <Content Include="Data\mongo-scripts\collections\data.js" />
+    <Content Include="Data\mongo-scripts\collections\log.js" />
+    <Content Include="Data\mongo-scripts\collections\meta.js" />
+    <Content Include="Data\mongo-scripts\collections\person.js" />
+    <Content Include="Data\mongo-scripts\initialize-database.js" />
+    <Content Include="Data\mongo-scripts\people\lacy.js" />
+    <Content Include="Data\mongo-scripts\people\mark.js" />
+    <Content Include="Data\mongo-scripts\setup-database.js" />
+    <Content Include="Data\mongo-scripts\setup-testdata.js" />
+    <Content Include="Data\mongo-scripts\test-data\body-weight.js" />
+    <Content Include="Data\mongo-scripts\test-data\gasoline-purchase.js" />
     <Content Include="Node\development-configuration.js" />
     <Content Include="Node\node_modules\chai\chai.js" />
     <Content Include="Node\node_modules\chai\index.js" />
@@ -580,9 +580,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Curl\body-weight\insert.ps1" />
-    <None Include="Data\MongoScripts\SetupZoeDevelopmentDatabase.bat" />
-    <None Include="Data\MongoScripts\SetupZoeProductionDatabase.bat" />
-    <None Include="Data\MongoScripts\SetupZoeTestDatabase.bat" />
+    <None Include="Data\mongo-scripts\setup-zoe-development-database.bat" />
+    <None Include="Data\mongo-scripts\setup-zoe-production-database.bat" />
+    <None Include="Data\mongo-scripts\setup-zoe-test-database.bat" />
     <None Include="Data\person-data.json" />
     <None Include="LICENSE" />
     <None Include="Node\node_modules\.bin\express" />
