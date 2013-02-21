@@ -1,5 +1,6 @@
 ﻿var _ = require('underscore'),
-    mongo = require('mongodb');
+    mongo = require('mongodb')
+    ;
 
 function Result(query, options) {
     this.toArray = function(callback) {

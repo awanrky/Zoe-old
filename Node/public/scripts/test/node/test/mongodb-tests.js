@@ -49,7 +49,7 @@
         it('should write to log', function(done) {
             mongo.open(function() {
                 expect(mocks.logger.size()).to.equal(1);
-                expect(mocks.logger.get(0)).to.equal('localhost:27017/ZoeDevelopment: Open');
+                expect(mocks.logger.get(0)).to.match(/localhost:27017\/Zoe.*: Open/);
                 done();
             });
         });
