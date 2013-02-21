@@ -1,6 +1,6 @@
 ﻿describe('zoe/mongodb', function () {
 
-    var configuration = require('../../../../../development-configuration.js');
+    var configuration = require('../../../../../zoe-configuration.js');
     var mongodb       = require('../../../../../zoe/mongodb');
     var expect = require('chai').expect;
 
