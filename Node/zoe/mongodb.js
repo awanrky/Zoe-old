@@ -1,4 +1,4 @@
-﻿var mongo = require('../node_modules/mongodb');
+﻿var mongo = require('mongodb');
 
 exports = module.exports = initialize;
 

@@ -25,34 +25,34 @@
             expect(mongo.db).to.be.an('object');
         });
 
-        it('should initialize a closed database connection', function() {
-            expect(mongo.isOpen()).to.equal(false);
-            expect(mongo.db.state).to.equal('disconnected');
-        });
-
-        it('should open the database connection', function(done) {
-            mongo.open(function() {
-                expect(mongo.isOpen()).to.equal(true);
-                expect(mongo.db.state).to.equal('connected');
-                done();
-            });
-        });
-
-        it('should not require a logger', function(done) {
-            var mongoWithoutLogger = mongodb(configuration);
-            mongoWithoutLogger.open(function () {
-                expect(mongoWithoutLogger.isOpen()).to.equal(true);
-                done();
-            });
-        });
-
-        it('should write to log', function(done) {
-            mongo.open(function() {
-                expect(mocks.logger.size()).to.equal(1);
-                expect(mocks.logger.get(0)).to.match(/localhost:27017\/Zoe.*: Open/);
-                done();
-            });
-        });
+//        it('should initialize a closed database connection', function() {
+//            expect(mongo.isOpen()).to.equal(false);
+//            expect(mongo.db.state).to.equal('disconnected');
+//        });
+//
+//        it('should open the database connection', function(done) {
+//            mongo.open(function() {
+//                expect(mongo.isOpen()).to.equal(true);
+//                expect(mongo.db.state).to.equal('connected');
+//                done();
+//            });
+//        });
+//
+//        it('should not require a logger', function(done) {
+//            var mongoWithoutLogger = mongodb(configuration);
+//            mongoWithoutLogger.open(function () {
+//                expect(mongoWithoutLogger.isOpen()).to.equal(true);
+//                done();
+//            });
+//        });
+//
+//        it('should write to log', function(done) {
+//            mongo.open(function() {
+//                expect(mocks.logger.size()).to.equal(1);
+//                expect(mocks.logger.get(0)).to.match(/localhost:27017\/Zoe.*: Open/);
+//                done();
+//            });
+//        });
 
     });
 });
