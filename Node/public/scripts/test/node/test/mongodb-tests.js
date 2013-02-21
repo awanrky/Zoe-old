@@ -1,25 +1,18 @@
 ﻿describe('zoe/mongodb', function () {
 
-    var mongodb = require('../../../../../zoe/mongodb');
+    var configuration = require('../../../../../development-configuration.js');
+    var mongodb       = require('../../../../../zoe/mongodb');
     var expect = require('chai').expect;
 
     var mocks = {};
 
     mocks.logger = require('../mocks/logger');
 
-    var defaultMongoConfiguration = {
-        environmentName: 'Development',
-        databaseServer: "localhost",
-        databasePort: 27017,
-        databaseName: "ZoeDevelopment",
-        nodePort: 1976
-    };
-    
     var mongo;
 
     beforeEach(function () {
         mocks.logger.clear();
-        mongo = mongodb(defaultMongoConfiguration, mocks.logger);
+        mongo = mongodb(configuration, mocks.logger);
     });
 
     describe('mongodb', function () {
@@ -46,7 +39,7 @@
         });
 
         it('should not require a logger', function(done) {
-            var mongoWithoutLogger = mongodb(defaultMongoConfiguration);
+            var mongoWithoutLogger = mongodb(configuration);
             mongoWithoutLogger.open(function () {
                 expect(mongoWithoutLogger.isOpen()).to.equal(true);
                 done();

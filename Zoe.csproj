@@ -35,16 +35,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
-    <Content Include="Data\MongoScripts\Collections\Data.js" />
-    <Content Include="Data\MongoScripts\Collections\Log.js" />
-    <Content Include="Data\MongoScripts\Collections\Meta.js" />
-    <Content Include="Data\MongoScripts\InitializeDatabase.js" />
-    <Content Include="Data\MongoScripts\People\Lacy.js" />
-    <Content Include="Data\MongoScripts\People\Mark.js" />
-    <Content Include="Data\MongoScripts\Collections\Person.js" />
-    <Content Include="Data\MongoScripts\TestData\BodyWeight.js" />
-    <Content Include="Data\MongoScripts\TestData\GasolinePurchase.js" />
-    <Content Include="Node\configuration.js" />
+    <Content Include="Data\MongoScripts\Collections\data.js" />
+    <Content Include="Data\MongoScripts\Collections\log.js" />
+    <Content Include="Data\MongoScripts\Collections\meta.js" />
+    <Content Include="Data\MongoScripts\initialize-database.js" />
+    <Content Include="Data\MongoScripts\People\lacy.js" />
+    <Content Include="Data\MongoScripts\People\mark.js" />
+    <Content Include="Data\MongoScripts\Collections\person.js" />
+    <Content Include="Data\MongoScripts\setup-database.js" />
+    <Content Include="Data\MongoScripts\setup-testdata.js" />
+    <Content Include="Data\MongoScripts\TestData\body-weight.js" />
+    <Content Include="Data\MongoScripts\TestData\gasoline-purchase.js" />
+    <Content Include="Node\development-configuration.js" />
     <Content Include="Node\node_modules\chai\chai.js" />
     <Content Include="Node\node_modules\chai\index.js" />
     <Content Include="Node\node_modules\chai\lib\chai.js" />
@@ -567,16 +569,17 @@
     <Content Include="Node\public\scripts\test\web\tests-configuration.js" />
     <Content Include="Node\routes\person.js" />
     <Content Include="Node\routes\person\bodyWeight.js" />
+    <Content Include="Node\test-configuration.js" />
     <Content Include="Node\zoe-configuration.js" />
     <Content Include="Node\zoe-node.js" />
     <Content Include="Node\public\scripts\test\web\all-tests.html" />
     <Content Include="Node\public\scripts\lib\mocha.css" />
     <Content Include="Node\public\scripts\lib\mocha.js" />
     <Content Include="Node\zoe\mongodb.js" />
+    <Content Include="Node\production-configuration.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Curl\body-weight\insert.ps1" />
-    <None Include="Data\MongoScripts\setup.ps1" />
     <None Include="Data\MongoScripts\SetupZoeDevelopmentDatabase.bat" />
     <None Include="Data\MongoScripts\SetupZoeProductionDatabase.bat" />
     <None Include="Data\MongoScripts\SetupZoeTestDatabase.bat" />
@@ -791,6 +794,7 @@
     <None Include="Node\package.json" />
     <None Include="Node\start.bat" />
     <None Include="README.md" />
+    <None Include="setup-test-environment-linux.sh" />
     <None Include="SetupDevelopmentEnvironment.bat" />
     <None Include="SetupProductionEnvironment.bat" />
     <None Include="SetupTestEnvironment.bat" />

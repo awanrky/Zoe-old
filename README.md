@@ -9,7 +9,7 @@ Install and set up environment
 - clone repository at https://github.com/awanrky/Zoe
 - from the Node directory, run the command 'npm install'
 - run the command 'npm install -g mocha'
-- copy Zoe/configuration.js to Zoe/zoe-configuration.js
+- copy Zoe/Node/development-configuration.js to Zoe/Node/zoe-configuration.js
 - Edit zoe-configuration.js to point to the running instance of mongo
 - run SetupDevelopmentEnvironment.bat
 

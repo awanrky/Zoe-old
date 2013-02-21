@@ -1,1 +1,2 @@
-mongo localhost:27017/Zoe --quiet SetupZoe.js
+echo "Don't do it!!!"
+rem mongo localhost:27017/Zoe setup-database.js
