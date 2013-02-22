@@ -12,7 +12,7 @@
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
     IN THE SOFTWARE. */
 
-define(['knockout'], function (ko) {
+define(['aisa', 'knockout'], function (a$a, ko) {
     "use strict";
 
     return function ($) {
@@ -70,6 +70,11 @@ define(['knockout'], function (ko) {
 
         this.id = ko.observable(uninitializedValue);
         this.birthday = ko.observable(uninitializedValue);
+
+        this.formattedBirthday = ko.computed(function() {
+            return a$a.date.toDateString(new Date(that.birthday()));
+        });
+
         this.createdOn = ko.observable(uninitializedValue);
         this.source = ko.observable(uninitializedValue);
 

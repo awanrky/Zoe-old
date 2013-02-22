@@ -508,6 +508,8 @@
     <Content Include="Node\public\favicon.ico" />
     <Content Include="Node\public\index.css" />
     <Content Include="Node\public\index.html" />
+    <Content Include="Node\public\body\weight.html" />
+    <Content Include="Node\public\scripts\lib\aisa.js" />
     <Content Include="Node\public\scripts\lib\bootstrap\bootstrap.2.1.1\css\bootstrap-responsive.css" />
     <Content Include="Node\public\scripts\lib\bootstrap\bootstrap.2.1.1\css\bootstrap-responsive.min.css" />
     <Content Include="Node\public\scripts\lib\bootstrap\bootstrap.2.1.1\css\bootstrap.css" />
@@ -545,6 +547,7 @@
     <Content Include="Node\public\old\Person.js" />
     <Content Include="Node\public\scripts\lib\require-jquery.js" />
     <Content Include="Node\public\scripts\index.js" />
+    <Content Include="Node\public\scripts\test\web\lib\aisa-tests.js" />
     <Content Include="Node\public\scripts\test\web\person-viewmodel-tests.js" />
     <Content Include="Node\public\scripts\viewmodel\bodyweight.js" />
     <Content Include="Node\public\scripts\index-viewmodel.js" />

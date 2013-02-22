@@ -1,4 +1,5 @@
-﻿/*  MIT License (MIT)
+﻿<!DOCTYPE html>
+<!--MIT License (MIT)
     Copyright (c) 2013 Mark Ott
 
     Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
@@ -10,23 +11,17 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
     FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
-    IN THE SOFTWARE. */
+    IN THE SOFTWARE. -->
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoe</title>
+    <link href="../scripts/lib/bootstrap/bootstrap.2.1.1/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="../index.css" rel="stylesheet">
+    <script data-main="scripts/index" src="../scripts/lib/require-jquery.js"></script>
+</head>
+<body>
 
-requirejs.config({
-    baseurl: '.',
-    paths: {
-        'aisa': '../scripts/lib/aisa',
-        'jquery': 'require-jquery',
-        'bootstrap': '../scripts/lib/bootstrap/bootstrap.2.1.1/js/bootstrap',
-        'knockout': '../scripts/lib/knockout'
-    },
-    shim: {
-        'bootstrap': ['jquery']
-    }
-});
-
-require(['jquery', 'knockout', 'bootstrap', 'index-viewmodel'], function ($, ko, bs, IndexViewModel) {
-    var indexViewModel = new IndexViewModel($);
-    ko.applyBindings(indexViewModel);
-    indexViewModel.person.getPerson('Mark Gilbert Ott');
-});
+</body>
+</html>

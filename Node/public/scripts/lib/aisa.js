@@ -12,21 +12,23 @@
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
     IN THE SOFTWARE. */
 
-requirejs.config({
-    baseurl: '.',
-    paths: {
-        'aisa': '../scripts/lib/aisa',
-        'jquery': 'require-jquery',
-        'bootstrap': '../scripts/lib/bootstrap/bootstrap.2.1.1/js/bootstrap',
-        'knockout': '../scripts/lib/knockout'
-    },
-    shim: {
-        'bootstrap': ['jquery']
-    }
-});
 
-require(['jquery', 'knockout', 'bootstrap', 'index-viewmodel'], function ($, ko, bs, IndexViewModel) {
-    var indexViewModel = new IndexViewModel($);
-    ko.applyBindings(indexViewModel);
-    indexViewModel.person.getPerson('Mark Gilbert Ott');
+define([], function () {
+
+    var daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    return {
+        date: {
+            toDateString: function(d) {
+                return daysOfWeek[d.getDay()] + " " + monthNames[d.getMonth()] + " " + d.getDate() + " " + d.getFullYear();
+            },
+
+            addDays: function (d, numberOfDays) {
+                var millisecondsToAdd = numberOfDays * 86400000;
+                var milliseconds = d.getTime();
+                return new Date(milliseconds + millisecondsToAdd);
+            }            
+        }  
+    };
 });
