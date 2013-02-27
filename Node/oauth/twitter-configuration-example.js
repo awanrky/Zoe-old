@@ -1,4 +1,4 @@
-﻿exports.settings = {
+exports.settings = {
     consumerKey: '',
     consumerSecret: '',
     requestTokenUrl: 'https://api.twitter.com/oauth/request_token',
