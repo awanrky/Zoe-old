@@ -1,4 +1,4 @@
-describe('oauth', function () {
+﻿describe('oauth', function () {
 
     var expect = require('chai').expect,
         oauth = require('oauth').OAuth,
