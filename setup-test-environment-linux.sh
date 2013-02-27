@@ -11,6 +11,7 @@ npm install
 # set up configuration
 cd "$PROJECT_DIRECTORY/Node"
 cp ./test-configuration.js ./zoe-configuration.js
+cp /var/zoe/oauth/twitter-private.js ./Node/oauth/twitter-private.js
 
 # set up mongo test database
 cd "$PROJECT_DIRECTORY/Data/mongo-scripts"
