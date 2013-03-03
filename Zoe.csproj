@@ -1293,6 +1293,7 @@
     <None Include="SetupDevelopmentEnvironment.bat" />
     <None Include="SetupProductionEnvironment.bat" />
     <None Include="SetupTestEnvironment.bat" />
+    <None Include="start-node-test-watcher.sh" />
     <None Include="startDevelopmentEnvironment.lnk" />
     <None Include="startDevelopmentEnvironment.ps1" />
   </ItemGroup>
