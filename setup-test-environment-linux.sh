@@ -1,5 +1,4 @@
 #!/bin/bash
-
 PROJECT_DIRECTORY=`pwd`
 
 PATH=$PATH:/usr/local/bin
