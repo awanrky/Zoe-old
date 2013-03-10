@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <file url="file://$PROJECT_DIR$/Node" libraries="{Node.js v0.8.11 Core Modules}" />
+    <file url="PROJECT" libraries="{Knockout-2.2.1, Modernizr-2.6.2, Node.js v0.8.11 Core Modules, underscore}" />
+    <includedPredefinedLibrary name="Node.js Globals" />
+  </component>
+</project>
+
