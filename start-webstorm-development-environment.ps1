@@ -4,4 +4,5 @@ cmd /c start powershell -NoExit -Command { $Host.UI.RawUI.WindowTitle = "Zoe - N
 
 cmd /c start powershell -NoExit -Command { $Host.UI.RawUI.WindowTitle = "Zoe - Node Unit Tests"; set-location d:/Projects/Zoe; ./start-mocha.ps1; }
 
-cmd /c start powershell -Command { set-location "C:\Users\Mark\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\LiveReload"; start-process ./LiveReload.appref-ms; }
+cd d:/Projects/Zoe
+powershell -Command { ./start-livereload.ps1 }

@@ -1,0 +1,1 @@
+cmd /c start powershell -Command { $Host.UI.RawUI.WindowTitle = "Zoe - Web Unit Tests -- forever LiveReload"; cd d:\Projects\Zoe; forever .\start-livereload.js; }

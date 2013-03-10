@@ -1,0 +1,10 @@
+console.log('----------------------------------------------------------------------------------------------------------');
+console.log('Running a local copy of LiveReload.');
+console.log('Be sure to check for updates from time to time by using the installed LiveReload shortcut.');
+console.log('');
+console.log('To kill this process, use Ctl-C on this window and enter y to terminate batch script.');
+console.log('Then close the running LiveReload process to finish closing this window.');
+console.log('----------------------------------------------------------------------------------------------------------');
+console.log('');
+var child_process = require('child_process').exec;
+child_process('d:/LiveReload/LiveReload.exe');
