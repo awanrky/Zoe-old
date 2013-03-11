@@ -1,7 +1,7 @@
 ﻿exports.environmentName = 'Production';
 
 exports.databaseServer = "localhost";
-exports.databasePort = ;
+exports.databasePort = '<enter database port (as number) here>';
 exports.databaseName = "Zoe";
 
-exports.nodePort = ;
+exports.nodePort = '<enter node port (as number) here>';
