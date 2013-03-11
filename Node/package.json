@@ -7,7 +7,7 @@
 		"oauth": "*",
 		"mongodb": "*",
 		"underscore": "*",
-        "underscore.string": "*",
+		"underscore.string": "*",
 		"mocha": "*",
 		"chai": "*"
 	}

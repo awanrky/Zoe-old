@@ -60,8 +60,6 @@ describe('external.fitbit', function () {
 			expect(url).to.contain('user/-/body/log/weight');
 		});
 
-
-
 //    it('should get the current user\'s body weight', function() {
 //        fitbit.getBodyWeight()
 //    });
