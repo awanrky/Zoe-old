@@ -1,5 +1,5 @@
 describe('external.fitbit', function () {
-	"use strict";
+	'use strict';
 
 	var expect = require('chai').expect,
 
@@ -8,6 +8,8 @@ describe('external.fitbit', function () {
 
 		fitbitKeys = require('../../../../../../oauth/fitbit-private').settings
 		;
+
+	fitbitKeys.currentUser = fitbitKeys.awanrky;
 
 	var fitbit = new Fitbit(fitbitKeys);
 
@@ -60,10 +62,107 @@ describe('external.fitbit', function () {
 			expect(url).to.contain('user/-/body/log/weight');
 		});
 
-//    it('should get the current user\'s body weight', function() {
-//        fitbit.getBodyWeight()
-//    });
+		it('should get a body weight url for a date range', function () {
+			var url = fitbit.getBodyWeightUrl([new Date(2013, 0, 1), new Date(2013, 0, 2)]);
+			expect(url).to.contain('user/-/body/log/weight/date/2013-01-01/2013-01-02');
+		});
+
+		it('should get a body weight url for a period of a week', function () {
+			var url = fitbit.getBodyWeightUrl([new Date(2013, 2, 13), 'week']);
+			expect(url).to.contain('user/-/body/log/weight/date/2013-03-13/1w');
+
+			url = fitbit.getBodyWeightUrl([new Date(2013, 2, 13), '1w']);
+			expect(url).to.contain('user/-/body/log/weight/date/2013-03-13/1w');
+
+			url = fitbit.getBodyWeightUrl([new Date(2013, 2, 13), '7d']);
+			expect(url).to.contain('user/-/body/log/weight/date/2013-03-13/1w');
+		});
+
+		it('should get a body weight url for a period of a day', function () {
+			var url = fitbit.getBodyWeightUrl([new Date(2013, 2, 13), 'day']);
+			expect(url).to.contain('user/-/body/log/weight/date/2013-03-13/1d');
+
+			url = fitbit.getBodyWeightUrl([new Date(2013, 2, 13), '1d']);
+			expect(url).to.contain('user/-/body/log/weight/date/2013-03-13/1d');
+		});
+
+		it('should get a body weight url for a period of a month', function () {
+			var url = fitbit.getBodyWeightUrl([new Date(2013, 2, 13), 'month']);
+			expect(url).to.contain('user/-/body/log/weight/date/2013-03-13/1m');
+
+			url = fitbit.getBodyWeightUrl([new Date(2013, 2, 13), '30d']);
+			expect(url).to.contain('user/-/body/log/weight/date/2013-03-13/1m');
+
+			url = fitbit.getBodyWeightUrl([new Date(2013, 2, 13), '1m']);
+			expect(url).to.contain('user/-/body/log/weight/date/2013-03-13/1m');
+		});
+
+		it('should get the current user\'s body weight', function(done) {
+			fitbit.getBodyWeight(function(error, data) {
+				expect(error).to.be.null;
+				expect(JSON.parse(data).weight).to.be.an('array');
+				done();
+			});
+		});
 	});
 
+	describe('body fat', function () {
+		it('should get the current user\'s body fat', function(done) {
+			fitbit.getBodyFat(function(error, data) {
+				expect(error).to.be.null;
+				expect(JSON.parse(data).fat).to.be.an('array');
+				done();
+			});
+		});
+	});
+
+	describe('user profile', function () {
+		it('should get the current user\'s profile', function(done) {
+			fitbit.getUserProfile(function(error, data) {
+				expect(error).to.be.null;
+				expect(JSON.parse(data).user).to.be.an('object');
+				done();
+			});
+		});
+	});
+
+	describe('heart rate', function () {
+		it('should get the current user\'s heart rate', function(done) {
+			fitbit.getHeartRate(function(error, data) {
+				expect(error).to.be.null;
+				var heartRateInformation = JSON.parse(data);
+				expect(heartRateInformation).to.be.an('object');
+				expect(heartRateInformation.average).to.be.an('array');
+				expect(heartRateInformation.heart).to.be.an('array');
+				done();
+			});
+		});
+	});
+
+	describe('blood pressure', function () {
+		it('should get the current user\'s blood pressure', function(done) {
+			fitbit.getBloodPressure(function(error, data) {
+				expect(error).to.be.null;
+				var bloodPressureInformation = JSON.parse(data);
+				expect(bloodPressureInformation).to.be.an('object');
+//				expect(bloodPressureInformation.average).to.be.an('object');
+				expect(bloodPressureInformation.bp).to.be.an('array');
+				done();
+			});
+		});
+	});
+
+	describe('glucose', function () {
+		it('should get the current user\'s glucose', function(done) {
+			fitbit.getGlucose(function(error, data) {
+				expect(error).to.be.null;
+				var glucoseInformation = JSON.parse(data);
+				expect(glucoseInformation).to.be.an('object');
+				expect(glucoseInformation.glucose).to.be.an('array');
+//				expect(glucoseInformation.hba1c).to.be.a('string');
+				done();
+			});
+		});
+	});
 
 });

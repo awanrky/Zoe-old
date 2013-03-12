@@ -5,7 +5,7 @@ _.string = require('underscore.string');
 _.mixin(_.string.exports());
 
 module.exports = function (fitbitSettings) {
-	"use strict";
+	'use strict';
 	var that = this;
 	var s = fitbitSettings;
 
@@ -19,8 +19,32 @@ module.exports = function (fitbitSettings) {
 		s.signatureMethod
 	);
 
+	function splitArguments() {
+		var args = _.toArray(arguments[0]);
+		var callback = args.pop();
+		return {
+			callback: callback,
+			args: args
+		};
+	}
+
+	function get(url, callback) {
+		oauth.get(
+			url,
+			s.currentUser.accessToken,
+			s.currentUser.accessTokenSecret,
+			callback
+		);
+	}
+
+	function getResource(urlFunction, args) {
+		var a = splitArguments(args);
+		var url = urlFunction(a.args);
+		get(url, a.callback);
+	}
+
 	this.getUrl = function (path) {
-		return _.join(s.baseUrl, path);
+		return s.baseUrl + path;
 	};
 
 	this.formatDate = function (date) {
@@ -41,6 +65,7 @@ module.exports = function (fitbitSettings) {
 
 		if (_.isDate(period)) { return '/' + that.formatDate(period); }
 
+		//noinspection FallthroughInSwitchStatementJS
 		switch(period) {
 			case 'day':
 			case '1d':
@@ -62,54 +87,173 @@ module.exports = function (fitbitSettings) {
 	};
 
 	/**
-	 * returns a resource url to get all the user's body weight entries for a given day
+	 * returns a resource url to get all the user's body weight entries for a given time period
 	 *
-	 * @param date {Date}
-	 * @param period {Date} or {string}
-	 * @param user {string}
+	 * @param args {Array}
+	 *	args[0] = date
+	 *	args[1] = period
+	 *	args[2] = user
 	 * @returns {string}
 	 */
-	this.getBodyWeightUrl = function () {
-		var date = that.formatDate(arguments[0] || new Date());
-		var period = that.formatPeriod(arguments[1]);
-		var user = arguments[2] || '-';
+	this.getBodyWeightUrl = function (args) {
+		args = args || [];
+		var date = that.formatDate(args[0] || new Date());
+		var period = that.formatPeriod(args[1]);
+		var user = args[2] || '-';
 
 		return that.getUrl('user/' + user + '/body/log/weight/date/' + date + period + '.json');
 	};
 
+	/**
+	 * returns a resource url to get all the user's body fat entries for a given time period
+	 *
+	 * @param args {Array}
+	 *	args[0] = date
+	 *	args[1] = period
+	 *	args[2] = user
+	 * @returns {string}
+	 */
+	this.getBodyFatUrl = function (args) {
+		args = args || [];
+		var date = that.formatDate(args[0] || new Date());
+		var period = that.formatPeriod(args[1]);
+		var user = args[2] || '-';
+
+		return that.getUrl('user/' + user + '/body/log/fat/date/' + date + period + '.json');
+	};
+
+	/**
+	 * returns a resource url to get the user's profile
+	 *
+	 * @param args {Array}
+	 *	args[0] = user
+	 * @returns {string}
+	 */
+	this.getUserProfileUrl = function (args) {
+		args = args || [];
+		var user = args[0] || '-';
+
+		return that.getUrl('user/' + user + '/profile.json');
+	};
+
+	/**
+	 * returns a resource url to get the user's heart rate
+	 *
+	 * @param args {Array}
+	 *	args[0] = user
+	 *	args[1] = date
+	 * @returns {string}
+	 */
+	this.getHeartRateUrl = function (args) {
+		args = args || [];
+		var user = args[0] || '-';
+		var date = that.formatDate(args[1] || new Date());
+
+		return that.getUrl('user/' + user + '/heart/date/' + date + '.json');
+	};
+
+	/**
+	 * returns a resource url to get the user's blood pressure
+	 *
+	 * @param args {Array}
+	 *	args[0] = user
+	 *	args[1] = date
+	 * @returns {string}
+	 */
+	this.getBloodPressureUrl = function (args) {
+		args = args || [];
+		var user = args[0] || '-';
+		var date = that.formatDate(args[1] || new Date());
+
+		return that.getUrl('user/' + user + '/bp/date/' + date + '.json');
+	};
+
+	/**
+	 * returns a resource url to get the user's glucose
+	 *
+	 * @param args {Array}
+	 *	args[0] = user
+	 *	args[1] = date
+	 * @returns {string}
+	 */
+	this.getGlucoseUrl = function (args) {
+		args = args || [];
+		var user = args[0] || '-';
+		var date = that.formatDate(args[1] || new Date());
+
+		return that.getUrl('user/' + user + '/glucose/date/' + date + '.json');
+	};
+
+	//noinspection JSValidateJSDoc
+	/**
+	 * gets all the user's body weight entries for a given time period
+	 *
+	 * @param date {Date} _optional_
+	 * @param period {Date} or {string} _optional_
+	 * @param user {string} _optional_
+	 * @param callback {function}
+	 */
 	this.getBodyWeight = function () {
-		var callback, period;
-		var date = that.formatDate(arguments[0]);
-		if (arguments.length === 1) {
-			callback = arguments[1];
-		} else {
-			callback = arguments[2];
-			period = arguments[1];
-			if (typeof period !== 'string') {
-				period = that.formatDate(period);
-			}
-			date = date + '/' + period;
-		}
+		getResource(that.getBodyWeightUrl, arguments);
+	};
 
+	//noinspection JSValidateJSDoc
+	/**
+	 * gets all the user's body fat entries for a given time period
+	 *
+	 * @param date {Date} _optional_
+	 * @param period {Date} or {string} _optional_
+	 * @param user {string} _optional_
+	 * @param callback {function}
+	 */
+	this.getBodyFat = function () {
+		getResource(that.getBodyFatUrl, arguments);
+	};
 
-		var url = that.getBodyWeightUrl(arguments);
-		oauth.get(
-			url,
-			s.accessToken,
-			s.accessTokenSecret,
-			callback
-		);
+	//noinspection JSValidateJSDoc
+	/**
+	 * gets the user's profile
+	 *
+	 * @param user {string} _optional_
+	 * @param callback {function}
+	 */
+	this.getUserProfile = function () {
+		getResource(that.getUserProfileUrl, arguments);
+	};
+
+	//noinspection JSValidateJSDoc
+	/**
+	 * gets the user's heart rate
+	 *
+	 * @param user {string} _optional_
+	 * @param date {Date} _optional_
+	 * @param callback {function}
+	 */
+	this.getHeartRate = function () {
+		getResource(that.getHeartRateUrl, arguments);
+	};
+
+	//noinspection JSValidateJSDoc
+	/**
+	 * gets the user's blood pressure
+	 *
+	 * @param user {string} _optional_
+	 * @param date {Date} _optional_
+	 * @param callback {function}
+	 */
+	this.getBloodPressure = function () {
+		getResource(that.getBloodPressureUrl, arguments);
+	};
+
+	//noinspection JSValidateJSDoc
+	/**
+	 * gets the user's glucose
+	 *
+	 * @param user {string} _optional_
+	 * @param date {Date} _optional_
+	 * @param callback {function}
+	 */
+	this.getGlucose = function () {
+		getResource(that.getGlucoseUrl, arguments);
 	};
 };
-
-
-//testOauth.get(
-//          "http://api.fitbit.com/1/user/-/foods/log/date/2012-01-01.json",
-//          fitbitKeys.awanrky.accessToken, fitbitKeys.awanrky.accessTokenSecret,
-//          function (error, data) {
-//              if (error) done(require('sys').inspect(error));
-//              var response = JSON.parse(data);
-//              expect(response.summary.calories).to.equal(0);
-//              done();
-//          }
-//        );
