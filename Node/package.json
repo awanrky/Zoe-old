@@ -9,6 +9,7 @@
 		"underscore": "*",
 		"underscore.string": "*",
 		"mocha": "*",
-		"chai": "*"
+		"chai": "*",
+		"fitbit-node": "git://github.com/awanrky/fitbit-node.git"
 	}
 }
