@@ -10,8 +10,8 @@ npm install
 # set up configuration
 cd "$PROJECT_DIRECTORY/Node"
 cp ./test-configuration.js ./zoe-configuration.js
-cp /mnt/Projects/Zoe/Node/oauth/twitter-private.js ./oauth/twitter-private.js
-cp /mnt/Projects/Zoe/Node/oauth/fitbit-private.js ./oauth/fitbit-private.js
+cp /var/Projects/Zoe/Node/oauth/twitter-private.js ./oauth/twitter-private.js
+cp /var/Projects/Zoe/Node/oauth/fitbit-private.js ./oauth/fitbit-private.js
 
 # set up mongo test database
 cd "$PROJECT_DIRECTORY/Data/mongo-scripts"
