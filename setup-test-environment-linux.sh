@@ -22,3 +22,9 @@ mongo localhost:27017/ZoeTest setup-testdata.js
 mkdir "$PROJECT_DIRECTORY/test-results"
 cd "$PROJECT_DIRECTORY/Node/public/scripts/test/node"
 mocha --recursive --reporter xunit > "$PROJECT_DIRECTORY/test-results/node-unit-tests.xml"
+
+echo -----------------------------------------------------------------------------
+echo something is putting junk warning messages in my mocha output
+echo for now, just get rid of it, later need to find why this happens
+echo -----------------------------------------------------------------------------
+find . -type f -exec sed -i 's/\[Error: Symbol kerberos_module not found.\]//g' {} \;
